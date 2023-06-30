@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Diagnostics;
 using UserAPI.Interfaces;
 using UserAPI.Models;
 
@@ -8,12 +9,12 @@ namespace UserAPI.Services
     public class PatientRepo : IRepo<Patient, string>
     {
         private readonly HospitalContext _context;
-        private readonly ILogger<Patient> _logger;
+        //private readonly ILogger<Patient> _logger;
 
-        public PatientRepo(HospitalContext context , ILogger<Patient> logger)
+        public PatientRepo(HospitalContext context) // , ILogger<Patient> logger)
         {
             _context = context;
-            _logger = logger;   
+            //_logger = logger;   
         }
         public async Task<Patient> Add(Patient item)
         {
@@ -28,7 +29,8 @@ namespace UserAPI.Services
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex.ToString());
+                //_logger.LogError(ex.ToString());
+                Debug.WriteLine(ex.Message);
                
             }
             throw new UnableToAddException("Unable To add patient");
@@ -80,7 +82,8 @@ namespace UserAPI.Services
             catch(Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex.ToString());
+                //_logger.LogError(ex.ToString());
+                Debug.WriteLine(ex.Message);
             }
             throw new NotUpdatedException("Unable to update patient details");
         }

@@ -86,12 +86,7 @@ namespace UserAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserDetailsEmail")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Email");
-
-                    b.HasIndex("UserDetailsEmail");
 
                     b.ToTable("Doctors");
                 });
@@ -157,12 +152,7 @@ namespace UserAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserDetailsEmail")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Email");
-
-                    b.HasIndex("UserDetailsEmail");
 
                     b.ToTable("Patients");
                 });
@@ -195,64 +185,6 @@ namespace UserAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UserAPI.Models.UserDetails", b =>
-                {
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateofBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Marital_Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Email");
-
-                    b.ToTable("UserDetails");
-                });
-
             modelBuilder.Entity("UserAPI.Models.Doctor", b =>
                 {
                     b.HasOne("UserAPI.Models.User", "User")
@@ -260,10 +192,6 @@ namespace UserAPI.Migrations
                         .HasForeignKey("Email")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("UserAPI.Models.UserDetails", null)
-                        .WithMany("doctor")
-                        .HasForeignKey("UserDetailsEmail");
 
                     b.Navigation("User");
                 });
@@ -276,36 +204,7 @@ namespace UserAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UserAPI.Models.UserDetails", "UserDetails")
-                        .WithMany("Patient")
-                        .HasForeignKey("UserDetailsEmail");
-
                     b.Navigation("User");
-
-                    b.Navigation("UserDetails");
-                });
-
-            modelBuilder.Entity("UserAPI.Models.UserDetails", b =>
-                {
-                    b.HasOne("UserAPI.Models.User", "User")
-                        .WithOne("UserDetails")
-                        .HasForeignKey("UserAPI.Models.UserDetails", "Email")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("UserAPI.Models.User", b =>
-                {
-                    b.Navigation("UserDetails");
-                });
-
-            modelBuilder.Entity("UserAPI.Models.UserDetails", b =>
-                {
-                    b.Navigation("Patient");
-
-                    b.Navigation("doctor");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using UserAPI.Interfaces;
 using UserAPI.Models;
 
@@ -7,12 +8,12 @@ namespace UserAPI.Services
     public class DoctorRepo : IRepo<Doctor,string>
     {
         private readonly HospitalContext _context;
-        private readonly ILogger<Doctor> _logger;
+        //private readonly ILogger<Doctor> _logger;
 
-        public DoctorRepo(HospitalContext context, ILogger<Doctor> logger)
+        public DoctorRepo(HospitalContext context)//, ILogger<Doctor> logger)
         {
             _context = context;
-            _logger = logger;
+            //_logger = logger;
         }
         public async Task<Doctor> Add(Doctor item)
         {
@@ -27,7 +28,7 @@ namespace UserAPI.Services
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex.ToString());
+                Debug.WriteLine(ex.Message);
 
             }
             throw new UnableToAddException("Unable to add " + item.ToString());
@@ -60,18 +61,18 @@ namespace UserAPI.Services
                 {
                     
                     Doctor.Age = (item.Age != 0) ? item.Age : Doctor.Age;
-                    Doctor.City = (item.City != null) ? item.City : Doctor.City;
-                    Doctor.State = (item.State != null) ? item.State : Doctor.State;
-                    Doctor.FirstName = (item.FirstName != null) ? item.FirstName : Doctor.FirstName;
-                    Doctor.LastName = (item.LastName != null) ? item.LastName : Doctor.LastName;
-                    Doctor.Gender = (item.Gender != null) ? item.Gender : Doctor.Gender;
-                    Doctor.StreetAddress = (item.StreetAddress != null) ? item.StreetAddress : Doctor.StreetAddress;
-                    Doctor.Phone = (item.Phone != null) ? item.Phone : Doctor.Phone;
-                    Doctor.Marital_Status = (item.Marital_Status != null) ? item.Marital_Status : Doctor.Marital_Status;
+                    Doctor.City = item.City ?? Doctor.City;
+                    Doctor.State = item.State ?? Doctor.State;
+                    Doctor.FirstName = item.FirstName ?? Doctor.FirstName;
+                    Doctor.LastName = item.LastName ?? Doctor.LastName;
+                    Doctor.Gender = item.Gender ?? Doctor.Gender;
+                    Doctor.StreetAddress = item.StreetAddress ?? Doctor.StreetAddress;
+                    Doctor.Phone = item.Phone ?? Doctor.Phone;
+                    Doctor.Marital_Status = item.Marital_Status ?? Doctor.Marital_Status;
                     Doctor.DateofBirth = (item.DateofBirth != DateTime.MinValue || item.DateofBirth != DateTime.Now) ? item.DateofBirth : Doctor.DateofBirth;
-                    Doctor.PostalCode = (item.PostalCode != null) ? item.PostalCode : Doctor.PostalCode;
-                    Doctor.Status = (item.Status != null) ? item.Status : Doctor.Status;
-                    Doctor.Specialization = (item.Specialization != null) ? item.Specialization : Doctor.Specialization;
+                    Doctor.PostalCode = item.PostalCode ?? Doctor.PostalCode;
+                    Doctor.Status = item.Status ?? Doctor.Status;
+                    Doctor.Specialization = item.Specialization ?? Doctor.Specialization;
                     Doctor.Experience = (item.Experience != 0) ? item.Experience : Doctor.Experience;
                     Doctor.AccountStatus = item.AccountStatus ?? Doctor.AccountStatus;
                     await _context.SaveChangesAsync();
@@ -82,7 +83,8 @@ namespace UserAPI.Services
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex.ToString());
+                //_logger.LogError(ex.ToString());
+                Debug.WriteLine(ex.Message);
             }
             throw new NotUpdatedException("Not updated");
         }

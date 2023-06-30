@@ -152,5 +152,15 @@ namespace UserAPI.Services
         {
             return await _patient.GetAll();
         }
+
+        public async Task<Patient> UpdatePatientPhone(PatientPhoneDTO phone)
+        {
+            Patient patient = new()
+                {
+                Email = phone.Email,
+                Phone = phone.PhoneNumber
+            };
+            return await _patient.Update(patient);
+        }
     }
 }

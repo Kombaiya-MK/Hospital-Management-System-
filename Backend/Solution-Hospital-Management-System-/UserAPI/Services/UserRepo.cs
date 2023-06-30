@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using UserAPI.Interfaces;
 using UserAPI.Models;
 
@@ -7,12 +8,12 @@ namespace UserAPI.Services
     public class UserRepo : IRepo<User , string>
     {
         private readonly HospitalContext _context;
-        private readonly ILogger<User> _logger;
+        //private readonly ILogger<User> _logger;
 
-        public UserRepo(HospitalContext context, ILogger<User> logger)
+        public UserRepo(HospitalContext context)
         {
             _context = context;
-            _logger = logger;
+            //_logger = logger;
         }
         public async Task<User> Add(User item)
         {
@@ -27,7 +28,7 @@ namespace UserAPI.Services
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex.ToString());
+                Debug.WriteLine(ex.Message);
 
             }
             throw new UnableToAddException("Unable Add exception");
@@ -60,7 +61,7 @@ namespace UserAPI.Services
                 {
                     user.Age = (item.Age != 0) ? item.Age : user.Age;
                     user.Name = item.Name ?? item.Email;
-                    user.PhoneNumber = (item.PhoneNumber != null) ? item.PhoneNumber : user.PhoneNumber;
+                    user.PhoneNumber = item.PhoneNumber ?? user.PhoneNumber;
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
                     return user;
@@ -69,7 +70,7 @@ namespace UserAPI.Services
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex.ToString());
+                Debug.WriteLine(ex.Message);
             }
             throw new NotUpdatedException("Unable to Update the user");
         }
