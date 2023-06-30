@@ -8,18 +8,18 @@ namespace UserAPI.Services
         public async Task<string?> GenerateDoctorPassword(Doctor doctor)
         {
             string password = String.Empty;
-            password =  doctor.DoctorFirstName.Substring(0, 4);
-            password += doctor.DoctorDateofBirth.Day;
-            password += doctor.DoctorDateofBirth.Month;
+            password =  doctor.FirstName.Substring(0, 4);
+            password += doctor.DateofBirth.Day;
+            password += doctor.DateofBirth.Month;
             return password;
         }
 
         public async Task<string?> GeneratePatientPassword(Patient patient)
         {
             string password = String.Empty;
-            password = patient.PatientFirstName.Substring(0, 4);
-            password += patient.PatientDateofBirth.Day;
-            password += patient.PatientDateofBirth.Month;
+            password = patient.FirstName.Substring(0, 4);
+            password += patient.DateofBirth.Day;
+            password += patient.DateofBirth.Month;
             return password;
         }
     }

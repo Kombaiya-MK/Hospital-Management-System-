@@ -54,18 +54,19 @@ namespace UserAPI.Services
                 if(patient != null)
                 {
                     await transaction.CommitAsync();
-                    patient.PatientAge = (item.PatientAge != 0)? item.PatientAge:patient.PatientAge;
-                    patient.PatientCity = (item.PatientCity != null) ? item.PatientCity : patient.PatientCity;
-                    patient.PatientState = (item.PatientState != null) ? item.PatientState : patient.PatientState;
-                    patient.PatientFirstName = (item.PatientFirstName != null) ? item.PatientFirstName : patient.PatientFirstName;
-                    patient.PatientLastName = (item.PatientLastName != null) ? item.PatientLastName : patient.PatientLastName;
-                    patient.PatientGender = (item.PatientGender != null) ? item.PatientGender : patient.PatientGender;
-                    patient.PatientStreetAddress = (item.PatientStreetAddress != null) ? item.PatientStreetAddress : patient.PatientStreetAddress;
-                    patient.PatientPhone = (item.PatientPhone != null) ? item.PatientPhone : patient.PatientPhone;
-                    patient.PatientMaritalStatus = (item.PatientMaritalStatus != null) ? item.PatientMaritalStatus : patient.PatientMaritalStatus;
-                    patient.PatientDateofBirth = (item.PatientDateofBirth != null) ? item.PatientDateofBirth : patient.PatientDateofBirth;
-                    patient.PatientPostalCode = (item.PatientPostalCode != null) ? item.PatientPostalCode : patient.PatientPostalCode;
-                    patient.PatientStatus = (item.PatientStatus != null) ? item.PatientStatus : patient.PatientStatus;
+                    patient.Age = (item.Age != 0)? item.Age : patient.Age;
+                    patient.City = (item.City != null) ? item.City : patient.City;
+                    patient.State = (item.State != null) ? item.State : patient.State;
+                    patient.FirstName = (item.FirstName != null) ? item.FirstName : patient.FirstName;
+                    patient.LastName = (item.LastName != null) ? item.LastName : patient.LastName;
+                    patient.Gender = (item.Gender != null) ? item.Gender : patient.Gender;
+                    patient.StreetAddress = (item.StreetAddress != null) ? item.StreetAddress : patient.StreetAddress;
+                    patient.Phone = (item.Phone != null) ? item.Phone : patient.Phone;
+                    patient.Marital_Status = (item.Marital_Status != null) ? item.Marital_Status : patient.Marital_Status;
+                    patient.PostalCode = (item.PostalCode != null) ? item.PostalCode : patient. PostalCode;
+                    patient.Status = (item.Status != null) ? item.Status : patient.Status;
+                    patient.EmergencyName = (item.EmergencyName != null)?item.EmergencyName : patient.EmergencyName;
+                    patient.EmergencyPhoneNumber = (item.EmergencyPhoneNumber != null)?item.EmergencyPhoneNumber : patient.EmergencyPhoneNumber;
                     await _context.SaveChangesAsync();
                 }
             }

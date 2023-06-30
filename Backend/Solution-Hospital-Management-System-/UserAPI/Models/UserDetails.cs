@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UserAPI.Models
 {
-    public class Doctor 
+    public class UserDetails
     {
         [Key]
         [Required(ErrorMessage = "Email id is required!!!")]
@@ -76,13 +76,8 @@ namespace UserAPI.Models
             Divorced,
             Widowed
         }
-        [Required(ErrorMessage = "Account status is required!!!")]
-        public string? AccountStatus { get; set;}
-
-        [Required(ErrorMessage = "Specialization is required!!!")]
-        public string? Specialization { get; set; }
-
-        [Required(ErrorMessage = "Experience is required!!!")]
-        public int Experience { get; set; }
+        
+        public ICollection<Patient?> Patient { get; set; }
+        public ICollection<Doctor?> doctor { get; set; }
     }
 }

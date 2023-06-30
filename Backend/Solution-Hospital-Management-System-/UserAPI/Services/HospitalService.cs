@@ -6,7 +6,7 @@ using UserAPI.Models.DTO;
 
 namespace UserAPI.Services
 {
-    public class HospitalService
+    public class HospitalService : IManageHospital
     {
         private readonly IRepo<Doctor, string> _doctor;
         private readonly IRepo<Patient, string> _patient;
@@ -33,7 +33,7 @@ namespace UserAPI.Services
         {
             Doctor doctor = new Doctor();
             doctor.Email = doc.Email;
-            doctor.DoctorAccountStatus = doc.DoctorAccountStatus;
+            doctor.AccountStatus = doc.DoctorAccountStatus;
             return await _doctor.Update(doctor);
         }
 
@@ -81,7 +81,7 @@ namespace UserAPI.Services
                 for (int i = 0; i < userPass.Length; i++)
                 {
                     if (userPass[i] != userData.HashKey[i])
-                        return null;
+                        throw new InvalidUserException("Invalid user");
                 }
                 user = new UserDTO();
                 user.Email = userData.Email;
@@ -109,7 +109,7 @@ namespace UserAPI.Services
             return status;
         }
 
-        public bool validatePassword(string currentPassword, User user)
+        private bool validatePassword(string currentPassword, User user)
         {
             bool status = true;
             var hmac = new HMACSHA512(user.Password);

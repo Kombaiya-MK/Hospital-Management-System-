@@ -53,21 +53,21 @@ namespace UserAPI.Services
                 if (Doctor != null)
                 {
                     await transaction.CommitAsync();
-                    Doctor.DoctorAge = (item.DoctorAge != 0) ? item.DoctorAge : Doctor.DoctorAge;
-                    Doctor.DoctorCity = (item.DoctorCity != null) ? item.DoctorCity : Doctor.DoctorCity;
-                    Doctor.DoctorState = (item.DoctorState != null) ? item.DoctorState : Doctor.DoctorState;
-                    Doctor.DoctorFirstName = (item.DoctorFirstName != null) ? item.DoctorFirstName : Doctor.DoctorFirstName;
-                    Doctor.DoctorLastName = (item.DoctorLastName != null) ? item.DoctorLastName : Doctor.DoctorLastName;
-                    Doctor.DoctorGender = (item.DoctorGender != null) ? item.DoctorGender : Doctor.DoctorGender;
-                    Doctor.DoctorStreetAddress = (item.DoctorStreetAddress != null) ? item.DoctorStreetAddress : Doctor.DoctorStreetAddress;
-                    Doctor.DoctorPhone = (item.DoctorPhone != null) ? item.DoctorPhone : Doctor.DoctorPhone;
-                    Doctor.DoctorMaritalStatus = (item.DoctorMaritalStatus != null) ? item.DoctorMaritalStatus : Doctor.DoctorMaritalStatus;
-                    Doctor.DoctorDateofBirth = (item.DoctorDateofBirth != null) ? item.DoctorDateofBirth : Doctor.DoctorDateofBirth;
-                    Doctor.DoctorPostalCode = (item.DoctorPostalCode != null) ? item.DoctorPostalCode : Doctor.DoctorPostalCode;
-                    Doctor.DoctorStatus = (item.DoctorStatus != null) ? item.DoctorStatus : Doctor.DoctorStatus;
-                    Doctor.DoctorSpecialization = (item.DoctorSpecialization != null) ? item.DoctorSpecialization : Doctor.DoctorSpecialization;
-                    Doctor.DoctorExperience = (item.DoctorExperience != 0)?item.DoctorExperience : Doctor.DoctorExperience;
-                    Doctor.DoctorAccountStatus = (item.DoctorAccountStatus != null)?item.DoctorAccountStatus : Doctor.DoctorAccountStatus;
+                    Doctor.Age = (item.Age != 0) ? item.Age : Doctor.Age;
+                    Doctor.City = (item.City != null) ? item.City : Doctor.City;
+                    Doctor.State = (item.State != null) ? item.State : Doctor.State;
+                    Doctor.FirstName = (item.FirstName != null) ? item.FirstName : Doctor.FirstName;
+                    Doctor.LastName = (item.LastName != null) ? item.LastName : Doctor.LastName;
+                    Doctor.Gender = (item.Gender != null) ? item.Gender : Doctor.Gender;
+                    Doctor.StreetAddress = (item.StreetAddress != null) ? item.StreetAddress : Doctor.StreetAddress;
+                    Doctor.Phone = (item.Phone != null) ? item.Phone : Doctor.Phone;
+                    Doctor.Marital_Status = (item.Marital_Status != null) ? item.Marital_Status : Doctor.Marital_Status;
+                    Doctor.DateofBirth = (item.DateofBirth != null) ? item.DateofBirth : Doctor.DateofBirth;
+                    Doctor.PostalCode = (item.PostalCode != null) ? item.PostalCode : Doctor.PostalCode;
+                    Doctor.Status = (item.Status != null) ? item.Status : Doctor.Status;
+                    Doctor.Specialization = (item.Specialization != null) ? item.Specialization : Doctor.Specialization;
+                    Doctor.Experience = (item.Experience != 0) ? item.Experience : Doctor.Experience;
+                    Doctor.AccountStatus = (item.AccountStatus != null)?item.AccountStatus : Doctor.AccountStatus;
                     await _context.SaveChangesAsync();
                 }
             }

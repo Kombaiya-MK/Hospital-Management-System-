@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UserAPI.Models
 {
-    public class Patient
+    public class Patient 
     {
+
         [Key]
         [Required(ErrorMessage = "Email id is required!!!")]
         [EmailAddress]
@@ -13,47 +15,68 @@ namespace UserAPI.Models
         [ForeignKey("Email")]
         public User? User { get; set; }
 
-        [Required(ErrorMessage = "Patient First name required")]
+        [Required(ErrorMessage = "First name required")]
         [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         [StringLength(50)]
-        public string? PatientFirstName { get; set; }
-        public string? PatientLastName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
 
         [Required(ErrorMessage = "Gender is required")]
         [RegularExpression("^M(ale)?$|^F(emale)?$", ErrorMessage = "Invalid Entry for gender!!!")]
-        public string? PatientGender { get; set; }
+        public string? Gender { get; set; }
 
         [Required(ErrorMessage = "phone number is  required")]
         [StringLength(10, ErrorMessage = "Phone number length is miss matched!!!")]
         [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
-        public string? PatientPhone { get; set; }
+        public string? Phone { get; set; }
 
         [Required(ErrorMessage = "Marital status is required.")]
         [EnumDataType(typeof(MaritalStatus), ErrorMessage = "Invalid marital status.")]
-        public string? PatientMaritalStatus { get; set; }
+        public string? Marital_Status { get; set; }
 
 
         [Required(ErrorMessage = "Street address is required.")]
-        public string? PatientStreetAddress { get; set; }
+        public string? StreetAddress { get; set; }
 
         [Required(ErrorMessage = "City is required.")]
-        public string? PatientCity { get; set; }
+        public string? City { get; set; }
 
         [Required(ErrorMessage = "State is required.")]
-        public string? PatientState { get; set; }
+        public string? State { get; set; }
 
         [Required(ErrorMessage = "Postal code is required.")]
-        public string? PatientPostalCode { get; set; }
+        public string? PostalCode { get; set; }
 
-        [Required(ErrorMessage = "Patient status is required!!!")]
+        [Required(ErrorMessage = "Status is required!!!")]
         [RegularExpression("^Active?$|^Inactive?$", ErrorMessage = "Invalid Entry!!!")]
         [MaxLength(15)]
-        public string? PatientStatus { get; set; }
+        public string? Status { get; set; }
 
         [Required(ErrorMessage = "date of birth is required!!!")]
-        public DateTime PatientDateofBirth { get; set; }
+        public DateTime DateofBirth { get; set; }
 
-        public int PatientAge {get; set; }
+
+        public int Age
+        {
+            get
+            {
+                return age;
+            }
+            set
+            {
+
+                age = DateTime.Today.Year - new DateTime(DateofBirth.Year,
+                    DateofBirth.Month, DateofBirth.Day).Year;
+            }
+        }
+        public string? EmergencyName { get; set; }
+
+        [Required(ErrorMessage = "phone number is  required")]
+        [StringLength(10, ErrorMessage = "Phone number length is miss matched!!!")]
+        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
+        public string? EmergencyPhoneNumber { get; set; }
+
+        private int age;
         public enum MaritalStatus
         {
             Single,

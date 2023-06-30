@@ -16,14 +16,15 @@ namespace UserAPI.Adapters
         }
         public async Task<User> DTOtoUser(PatientRegisterDTO item)
         {
+            item.User.Email = item.Email;
             var hmac = new HMACSHA512();
             string? generatedPassword = await  _passwordservice.GeneratePatientPassword(item);
             item.User.HashKey = hmac.ComputeHash(Encoding.UTF8.GetBytes(generatedPassword ?? "1234"));
             item.User.Password = hmac.Key;
             item.User.Role = "Patient";
-            item.User.PhoneNumber = item.PatientPhone;
-            item.User.Age = item.PatientAge;
-            item.User.Name = item.PatientFirstName;
+            item.User.PhoneNumber = item.Phone;
+            item.User.Age = item.Age;
+            item.User.Name = item.FirstName;
             return item.User;
 
 

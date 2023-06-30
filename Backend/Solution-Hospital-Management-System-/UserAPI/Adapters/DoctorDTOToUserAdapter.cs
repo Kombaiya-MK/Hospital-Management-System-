@@ -21,9 +21,9 @@ namespace UserAPI.Adapters
             item.User.HashKey = hmac.ComputeHash(Encoding.UTF8.GetBytes(generatedPassword ?? "1234"));
             item.User.Password = hmac.Key;
             item.User.Role = "Doctor";
-            item.User.PhoneNumber = item.DoctorPhone;
-            item.User.Age = item.DoctorAge;
-            item.User.Name = item.DoctorFirstName;
+            item.User.PhoneNumber = item.Phone;
+            item.User.Age = item.Age;
+            item.User.Name = item.FirstName;
             return item.User;
 
 

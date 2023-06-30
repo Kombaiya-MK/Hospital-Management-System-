@@ -12,8 +12,8 @@ using UserAPI.Models;
 namespace UserAPI.Migrations
 {
     [DbContext(typeof(HospitalContext))]
-    [Migration("20230630054211_init")]
-    partial class init
+    [Migration("20230630111953_third")]
+    partial class third
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,66 +29,71 @@ namespace UserAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DoctorAccountStatus")
+                    b.Property<string>("AccountStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DoctorAge")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("DoctorCity")
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DoctorDateofBirth")
+                    b.Property<DateTime>("DateofBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DoctorExperience")
+                    b.Property<int>("Experience")
                         .HasColumnType("int");
 
-                    b.Property<string>("DoctorFirstName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("DoctorGender")
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorLastName")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorMaritalStatus")
+                    b.Property<string>("Marital_Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorPhone")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("DoctorPostalCode")
+                    b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorSpecialization")
+                    b.Property<string>("Specialization")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorState")
+                    b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DoctorStatus")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("DoctorStreetAddress")
+                    b.Property<string>("StreetAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserDetailsEmail")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Email");
+
+                    b.HasIndex("UserDetailsEmail");
 
                     b.ToTable("Doctors");
                 });
@@ -98,55 +103,68 @@ namespace UserAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("PatientAge")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("PatientCity")
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PatientDateofBirth")
+                    b.Property<DateTime>("DateofBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PatientFirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PatientGender")
-                        .IsRequired()
+                    b.Property<string>("EmergencyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PatientLastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PatientMaritalStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PatientPhone")
+                    b.Property<string>("EmergencyPhoneNumber")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("PatientPostalCode")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PatientState")
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Marital_Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PatientStatus")
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("PatientStreetAddress")
+                    b.Property<string>("StreetAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserDetailsEmail")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Email");
+
+                    b.HasIndex("UserDetailsEmail");
 
                     b.ToTable("Patients");
                 });
@@ -179,6 +197,64 @@ namespace UserAPI.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("UserAPI.Models.UserDetails", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateofBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Marital_Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("UserDetails");
+                });
+
             modelBuilder.Entity("UserAPI.Models.Doctor", b =>
                 {
                     b.HasOne("UserAPI.Models.User", "User")
@@ -186,6 +262,10 @@ namespace UserAPI.Migrations
                         .HasForeignKey("Email")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("UserAPI.Models.UserDetails", null)
+                        .WithMany("doctor")
+                        .HasForeignKey("UserDetailsEmail");
 
                     b.Navigation("User");
                 });
@@ -198,7 +278,36 @@ namespace UserAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("UserAPI.Models.UserDetails", "UserDetails")
+                        .WithMany("Patient")
+                        .HasForeignKey("UserDetailsEmail");
+
                     b.Navigation("User");
+
+                    b.Navigation("UserDetails");
+                });
+
+            modelBuilder.Entity("UserAPI.Models.UserDetails", b =>
+                {
+                    b.HasOne("UserAPI.Models.User", "User")
+                        .WithOne("UserDetails")
+                        .HasForeignKey("UserAPI.Models.UserDetails", "Email")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserAPI.Models.User", b =>
+                {
+                    b.Navigation("UserDetails");
+                });
+
+            modelBuilder.Entity("UserAPI.Models.UserDetails", b =>
+                {
+                    b.Navigation("Patient");
+
+                    b.Navigation("doctor");
                 });
 #pragma warning restore 612, 618
         }
