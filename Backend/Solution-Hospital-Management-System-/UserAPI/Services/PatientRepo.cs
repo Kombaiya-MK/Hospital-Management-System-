@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using UserAPI.Interfaces;
 using UserAPI.Models;
 
@@ -22,6 +23,7 @@ namespace UserAPI.Services
                 _context.Patients.Add(item);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
+                return item;
             }
             catch (Exception ex)
             {
@@ -29,18 +31,22 @@ namespace UserAPI.Services
                 _logger.LogError(ex.ToString());
                
             }
-            return item;
+            throw new UnableToAddException("Unable To add patient");
         }
 
         public async Task<Patient> Get(string key)
         {
-            var patient =  _context.Patients.FirstOrDefault(x => x.Email == key);
+            var patient = await _context.Patients.FirstOrDefaultAsync(x => x.Email == key);
+            if (patient == null)
+            {
+                throw new NullValueException("Invalid patient : " + key);
+            }
             return patient;
         }
 
         public async Task<ICollection<Patient>> GetAll()
         {
-            var patients = _context.Patients.ToList();
+            var patients = await _context.Patients.ToListAsync();
             return patients;
         }
 
@@ -53,7 +59,6 @@ namespace UserAPI.Services
             {
                 if(patient != null)
                 {
-                    await transaction.CommitAsync();
                     patient.Age = (item.Age != 0)? item.Age : patient.Age;
                     patient.City = (item.City != null) ? item.City : patient.City;
                     patient.State = (item.State != null) ? item.State : patient.State;
@@ -68,6 +73,8 @@ namespace UserAPI.Services
                     patient.EmergencyName = (item.EmergencyName != null)?item.EmergencyName : patient.EmergencyName;
                     patient.EmergencyPhoneNumber = (item.EmergencyPhoneNumber != null)?item.EmergencyPhoneNumber : patient.EmergencyPhoneNumber;
                     await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    return patient;
                 }
             }
             catch(Exception ex)
@@ -75,7 +82,7 @@ namespace UserAPI.Services
                 await transaction.RollbackAsync();
                 _logger.LogError(ex.ToString());
             }
-            return patient;
+            throw new NotUpdatedException("Unable to update patient details");
         }
     }
 }

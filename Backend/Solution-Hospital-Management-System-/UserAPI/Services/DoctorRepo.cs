@@ -1,4 +1,5 @@
-﻿using UserAPI.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using UserAPI.Interfaces;
 using UserAPI.Models;
 
 namespace UserAPI.Services
@@ -21,6 +22,7 @@ namespace UserAPI.Services
                 _context.Doctors.Add(item);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
+                return item;
             }
             catch (Exception ex)
             {
@@ -28,19 +30,23 @@ namespace UserAPI.Services
                 _logger.LogError(ex.ToString());
 
             }
-            return item;
+            throw new UnableToAddException("Unable to add " + item.ToString());
         }
 
         public async Task<Doctor> Get(string key)
         {
-            var Doctor = _context.Doctors.FirstOrDefault(x => x.Email == key);
+            var Doctor = await _context.Doctors.FirstOrDefaultAsync(x => x.Email == key);
+            if (Doctor == null)
+            {
+                throw new NullValueException("Invalid Email : " + key);
+            }
             return Doctor;
         }
 
         public async Task<ICollection<Doctor>> GetAll()
         {
-            var Doctors = _context.Doctors.ToList();
-            return Doctors;
+            var Doctors = _context.Doctors;
+            return await Doctors.ToListAsync();
         }
 
         public async Task<Doctor> Update(Doctor item)
@@ -52,7 +58,7 @@ namespace UserAPI.Services
             {
                 if (Doctor != null)
                 {
-                    await transaction.CommitAsync();
+                    
                     Doctor.Age = (item.Age != 0) ? item.Age : Doctor.Age;
                     Doctor.City = (item.City != null) ? item.City : Doctor.City;
                     Doctor.State = (item.State != null) ? item.State : Doctor.State;
@@ -62,13 +68,15 @@ namespace UserAPI.Services
                     Doctor.StreetAddress = (item.StreetAddress != null) ? item.StreetAddress : Doctor.StreetAddress;
                     Doctor.Phone = (item.Phone != null) ? item.Phone : Doctor.Phone;
                     Doctor.Marital_Status = (item.Marital_Status != null) ? item.Marital_Status : Doctor.Marital_Status;
-                    Doctor.DateofBirth = (item.DateofBirth != null) ? item.DateofBirth : Doctor.DateofBirth;
+                    Doctor.DateofBirth = (item.DateofBirth != DateTime.MinValue || item.DateofBirth != DateTime.Now) ? item.DateofBirth : Doctor.DateofBirth;
                     Doctor.PostalCode = (item.PostalCode != null) ? item.PostalCode : Doctor.PostalCode;
                     Doctor.Status = (item.Status != null) ? item.Status : Doctor.Status;
                     Doctor.Specialization = (item.Specialization != null) ? item.Specialization : Doctor.Specialization;
                     Doctor.Experience = (item.Experience != 0) ? item.Experience : Doctor.Experience;
                     Doctor.AccountStatus = (item.AccountStatus != null)?item.AccountStatus : Doctor.AccountStatus;
                     await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    return Doctor;
                 }
             }
             catch (Exception ex)
@@ -76,7 +84,7 @@ namespace UserAPI.Services
                 await transaction.RollbackAsync();
                 _logger.LogError(ex.ToString());
             }
-            return Doctor;
+            throw new NotUpdatedException("Not updated");
         }
     }
 }

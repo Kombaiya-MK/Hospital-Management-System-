@@ -1,4 +1,5 @@
-﻿using UserAPI.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using UserAPI.Interfaces;
 using UserAPI.Models;
 
 namespace UserAPI.Services
@@ -21,6 +22,7 @@ namespace UserAPI.Services
                 _context.Users.Add(item);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
+                return item;
             }
             catch (Exception ex)
             {
@@ -28,18 +30,22 @@ namespace UserAPI.Services
                 _logger.LogError(ex.ToString());
 
             }
-            return item;
+            throw new UnableToAddException("Unable Add exception");
         }
 
         public async Task<User> Get(string key)
         {
-            var User = _context.Users.FirstOrDefault(x => x.Email == key);
-            return User;
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == key);
+            if (user == null)
+            {
+                throw new NullValueException("Invalid User : " + key); 
+            }
+            return user;
         }
 
         public async Task<ICollection<User>> GetAll()
         {
-            var Users = _context.Users.ToList();
+            var Users = await _context.Users.ToListAsync();
             return Users;
         }
 
@@ -52,11 +58,12 @@ namespace UserAPI.Services
             {
                 if (user != null)
                 {
-                    await transaction.CommitAsync();
                     user.Age = (item.Age != 0) ? item.Age : user.Age;
                     user.Name = (item.Name != null) ? item.Name : item.Email;
                     user.PhoneNumber = (item.PhoneNumber != null) ? item.PhoneNumber : user.PhoneNumber;
                     await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    return user;
                 }
             }
             catch (Exception ex)
@@ -64,7 +71,7 @@ namespace UserAPI.Services
                 await transaction.RollbackAsync();
                 _logger.LogError(ex.ToString());
             }
-            return user;
+            throw new NotUpdatedException("Unable to Update the user");
         }
     }
 }
