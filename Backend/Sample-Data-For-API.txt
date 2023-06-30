@@ -1,0 +1,27 @@
+{
+  "email": "mksuresh@gmail.com",
+  "user": {
+  },
+  "FirstName": "Kombaiya",
+  "LastName": "Mariappan",
+  "Gender": "Male",
+  "Phone": "9994291196",
+  "Marital_Status": "Single",
+  "StreetAddress": "18 c",
+  "City": "Ammankovilnorthst",
+  "State": "Tamil Nadu",
+  "PostalCode": "627451",
+  "Status": "Inactive",
+  "DateofBirth": "2001-02-14",
+  "Age": 22,
+  "emergencyName": "Suresh",
+  "emergencyPhoneNumber": "6382205871",
+  "passwordClear": "mk@123"
+}
+
+
+
+{
+  "email": "mksuresh@gmail.com",
+  "password": "Komb142"
+}
