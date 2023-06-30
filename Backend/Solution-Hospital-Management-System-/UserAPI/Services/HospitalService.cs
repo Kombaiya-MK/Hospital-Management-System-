@@ -34,7 +34,8 @@ namespace UserAPI.Services
             Doctor doctor = new()
             {
                 Email = doc.Email,
-                AccountStatus = doc.DoctorAccountStatus
+                AccountStatus = doc.AccountStatus,
+                Status = doc.Status,
             };
             return await _doctor.Update(doctor);
         }
