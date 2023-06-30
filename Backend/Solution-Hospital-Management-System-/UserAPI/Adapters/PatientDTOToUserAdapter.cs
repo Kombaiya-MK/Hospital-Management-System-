@@ -30,6 +30,7 @@ namespace UserAPI.Adapters
             item.User.PhoneNumber = item.Phone;
             item.User.Age = item.Age;
             item.User.Name = item.FirstName;
+            item.Status = "Active";
             return item.User;
 
 

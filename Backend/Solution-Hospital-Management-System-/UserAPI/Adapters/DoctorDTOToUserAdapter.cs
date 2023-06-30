@@ -29,6 +29,8 @@ namespace UserAPI.Adapters
             item.User.PhoneNumber = item.Phone;
             item.User.Age = item.Age;
             item.User.Name = item.FirstName;
+            item.AccountStatus = "Pending";
+            item.Status = "NIL";
             return item.User;
 
 
