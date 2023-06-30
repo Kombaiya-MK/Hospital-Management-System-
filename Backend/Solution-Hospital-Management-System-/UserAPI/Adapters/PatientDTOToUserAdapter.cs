@@ -3,6 +3,7 @@ using System.Text;
 using UserAPI.Interfaces;
 using UserAPI.Models;
 using UserAPI.Models.DTO;
+using UserAPI.Services;
 
 namespace UserAPI.Adapters
 {
@@ -16,6 +17,10 @@ namespace UserAPI.Adapters
         }
         public async Task<User> DTOtoUser(PatientRegisterDTO item)
         {
+            if(item.User == null)
+            {
+                throw new NullValueException("User object is null");
+            }
             item.User.Email = item.Email;
             var hmac = new HMACSHA512();
             string? generatedPassword = await  _passwordservice.GeneratePatientPassword(item);

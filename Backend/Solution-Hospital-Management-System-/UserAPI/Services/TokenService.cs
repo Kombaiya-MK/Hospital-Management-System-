@@ -17,10 +17,13 @@ namespace UserAPI.Services
         }
         public string GenerateToken(UserDTO user)
         {
-            string token = string.Empty;
             //User identity
+            if(user.Email == null || user.Role == null) {
+                throw new NullValueException("Need user email and role for token generation");
+            }
             var claims = new List<Claim>
             {
+                
                 new Claim(JwtRegisteredClaimNames.NameId,user.Email),
                 new Claim(ClaimTypes.Role,user.Role)
             };
@@ -36,7 +39,7 @@ namespace UserAPI.Services
             //Using the handler to generate the token
             var tokenHandler = new JwtSecurityTokenHandler();
             var myToken = tokenHandler.CreateToken(tokenDescription);
-            token = tokenHandler.WriteToken(myToken);
+            var token = tokenHandler.WriteToken(myToken);
             return token;
         }
     }

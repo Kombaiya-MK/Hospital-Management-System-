@@ -6,7 +6,7 @@ namespace TestHospital
     [TestClass]
     public class PatientTest
     {
-        public DbContextOptions<HospitalContext> GetDbContextOptions()
+        public static DbContextOptions<HospitalContext> GetDbContextOptions()
         {
             var options = new DbContextOptionsBuilder<HospitalContext>()
                 .UseInMemoryDatabase(databaseName: "InternInMemeory")
@@ -14,9 +14,9 @@ namespace TestHospital
             return options;
         }
         [TestMethod]
-        public async Task TestofGetAll()
+        public void TestMethod1()
         {
-            Assert.AreEqual(1, 1);
+
         }
     }
 }

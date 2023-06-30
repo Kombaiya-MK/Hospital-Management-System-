@@ -9,7 +9,7 @@ namespace UserAPI.Services
         {
         }
 
-        public NullValueException(string? message) : base("No Value available")
+        public NullValueException(string? message) : base(message)
         {
         }
 

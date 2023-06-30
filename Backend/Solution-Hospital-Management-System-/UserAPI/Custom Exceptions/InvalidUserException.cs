@@ -11,7 +11,6 @@ namespace UserAPI.Services
 
         public InvalidUserException(string? message) : base(message)
         {
-            message = "Invalid User";
         }
 
         public InvalidUserException(string? message, Exception? innerException) : base(message, innerException)

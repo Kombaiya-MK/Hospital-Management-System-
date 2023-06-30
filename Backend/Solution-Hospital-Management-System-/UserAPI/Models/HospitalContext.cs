@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+#nullable disable
 namespace UserAPI.Models
 {
     public class HospitalContext:DbContext

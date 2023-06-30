@@ -35,11 +35,8 @@ namespace UserAPI.Services
 
         public async Task<Doctor> Get(string key)
         {
-            var Doctor = await _context.Doctors.FirstOrDefaultAsync(x => x.Email == key);
-            if (Doctor == null)
-            {
+            var Doctor = await _context.Doctors.FirstOrDefaultAsync(x => x.Email == key) ??
                 throw new NullValueException("Invalid Email : " + key);
-            }
             return Doctor;
         }
 
@@ -51,7 +48,10 @@ namespace UserAPI.Services
 
         public async Task<Doctor> Update(Doctor item)
         {
-
+            if (item.Email == null)
+            {
+                throw new NullValueException("Email is null");
+            }
             var Doctor = await Get(item.Email);
             var transaction = _context.Database.BeginTransaction();
             try
@@ -73,7 +73,7 @@ namespace UserAPI.Services
                     Doctor.Status = (item.Status != null) ? item.Status : Doctor.Status;
                     Doctor.Specialization = (item.Specialization != null) ? item.Specialization : Doctor.Specialization;
                     Doctor.Experience = (item.Experience != 0) ? item.Experience : Doctor.Experience;
-                    Doctor.AccountStatus = (item.AccountStatus != null)?item.AccountStatus : Doctor.AccountStatus;
+                    Doctor.AccountStatus = item.AccountStatus ?? Doctor.AccountStatus;
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
                     return Doctor;

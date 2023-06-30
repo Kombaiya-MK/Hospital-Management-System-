@@ -35,11 +35,8 @@ namespace UserAPI.Services
 
         public async Task<User> Get(string key)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == key);
-            if (user == null)
-            {
-                throw new NullValueException("Invalid User : " + key); 
-            }
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == key) ??
+                throw new NullValueException("Invalid User : " + key);
             return user;
         }
 
@@ -51,7 +48,10 @@ namespace UserAPI.Services
 
         public async Task<User> Update(User item)
         {
-
+            if (item.Email == null)
+            {
+                throw new NullValueException("Email is null");
+            }
             var user = await Get(item.Email);
             var transaction = _context.Database.BeginTransaction();
             try
@@ -59,7 +59,7 @@ namespace UserAPI.Services
                 if (user != null)
                 {
                     user.Age = (item.Age != 0) ? item.Age : user.Age;
-                    user.Name = (item.Name != null) ? item.Name : item.Email;
+                    user.Name = item.Name ?? item.Email;
                     user.PhoneNumber = (item.PhoneNumber != null) ? item.PhoneNumber : user.PhoneNumber;
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();

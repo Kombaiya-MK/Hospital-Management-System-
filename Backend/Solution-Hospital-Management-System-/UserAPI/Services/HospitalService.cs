@@ -31,9 +31,11 @@ namespace UserAPI.Services
 
         public async Task<Doctor> ApproveDoctor(ApproveDoctorDTO doc)
         {
-            Doctor doctor = new Doctor();
-            doctor.Email = doc.Email;
-            doctor.AccountStatus = doc.DoctorAccountStatus;
+            Doctor doctor = new()
+            {
+                Email = doc.Email,
+                AccountStatus = doc.DoctorAccountStatus
+            };
             return await _doctor.Update(doctor);
         }
 
@@ -73,19 +75,27 @@ namespace UserAPI.Services
 
         public async Task<UserDTO> Login(UserDTO user)
         {
+            if(user.Email == null)
+            {
+                throw new NullValueException("User Email is Required!!!");
+            }
             var userData = await _user.Get(user.Email);
-            if (userData != null)
+            if (userData != null && userData.Password != null && user.Password != null)
             {
                 var hmac = new HMACSHA512(userData.Password);
                 var userPass = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.Password));
                 for (int i = 0; i < userPass.Length; i++)
                 {
-                    if (userPass[i] != userData.HashKey[i])
+                    if (userData == null || userData.HashKey == null || userData?.HashKey[i] == null)
+                        throw new NullValueException("HashKey value is null");
+                    else if (userPass[i] != userData.HashKey[i])
                         throw new InvalidUserException("Invalid user");
                 }
-                user = new UserDTO();
-                user.Email = userData.Email;
-                user.Role = userData.Role;
+                user = new UserDTO
+                {
+                    Email = userData.Email,
+                    Role = userData.Role
+                };
                 user.Token = _tokenservice.GenerateToken(user);
             }
             return user;
@@ -94,11 +104,19 @@ namespace UserAPI.Services
         public async Task<bool> ChangePassword(PasswordDTO passwordDTO)
         {
             bool status = false;
+            if (passwordDTO.Email == null || passwordDTO.CurrentPassword == null)
+            {
+                throw new NullValueException("User Email is Required!!!");
+            }
             User user = await _user.Get(passwordDTO.Email);
-            if (validatePassword(passwordDTO.currentPassword, user))
+            if (user == null)
+                throw new NullValueException("Null value for user");
+            else if (user.Password == null)
+                throw new NullValueException("user password");
+            if (ValidatePassword(passwordDTO.CurrentPassword, user))
             {
                 var hmac = new HMACSHA512();
-                user.HashKey = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordDTO.updatedPassword ?? "1234"));
+                user.HashKey = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordDTO.UpdatedPassword ?? "1234"));
                 user.Password = hmac.Key;
             }
             var result = await _user.Update(user);
@@ -109,14 +127,16 @@ namespace UserAPI.Services
             return status;
         }
 
-        private bool validatePassword(string currentPassword, User user)
+        private static bool ValidatePassword(string currentPassword, User user)
         {
             bool status = true;
+            if (user.Password == null)
+                throw new NullValueException("user password");
             var hmac = new HMACSHA512(user.Password);
             var userPass = hmac.ComputeHash(Encoding.UTF8.GetBytes(currentPassword));
             for (int i = 0; i < userPass.Length; i++)
             {
-                if (userPass[i] != user.HashKey[i])
+                if (user == null || user.HashKey == null || userPass[i] != user.HashKey[i])
                     status = false;
             }
             return status;
