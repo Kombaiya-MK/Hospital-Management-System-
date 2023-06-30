@@ -21,7 +21,7 @@ namespace UserAPI.Services
             //User identity
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId,user.Username),
+                new Claim(JwtRegisteredClaimNames.NameId,user.Email),
                 new Claim(ClaimTypes.Role,user.Role)
             };
             //Signature algorithm
