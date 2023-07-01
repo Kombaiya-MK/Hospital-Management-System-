@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import './Patient-Register.css'
+import { useNavigate } from "react-router-dom";
 
 function PatientRegister(){
 
-
+    const navigate = useNavigate()
     const [Patient , SetPatient] = useState(
         {
             "email": "",
@@ -41,195 +43,222 @@ function PatientRegister(){
             });
     }
     return (
-        <div>
+        <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
             <div className="pat-register-component">
-            <div className="pat-register-container">
-                <div>
-                    <div className="pat-register">Register</div>
+              <div className="pat-register-container">
+                <div className="text-center mb-4">
+                  <h2 className="pat-register">Register as Patient</h2>
                 </div>
-                <div className="form-control pat-register-form-container">
-                    <label>
-                        Email Address
-                    </label>
+                <div className="row g-3">
+                  <div className="col-12">
+                    <label htmlFor="email">Email Address</label>
                     <input
-                        className="col-12 mb-4"
-                        type="email"
-                        value={Patient.email}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "email": event.target.value })
-                        }}
+                      className="form-control"
+                      type="email"
+                      id="email"
+                      value={Patient.email}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, email: event.target.value })
+                      }
                     />
-
-                    <label>
-                        FirstName
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="firstName">First Name</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.firstName}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "firstName": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="firstName"
+                      value={Patient.firstName}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, firstName: event.target.value })
+                      }
                     />
-                    <label>
-                        lastName
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="lastName">Last Name</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.lastName}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "lastName": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="lastName"
+                      value={Patient.lastName}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, lastName: event.target.value })
+                      }
                     />
-                    <label>
-                        Date of Birth
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="dateOfBirth">Date of Birth</label>
                     <input
-                        className="col-12 mb-4"
-                        type="date"
-                        value={Patient.dateofBirth}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "dateofBirth": event.target.value })
-                        }}
+                      className="form-control"
+                      type="date"
+                      id="dateOfBirth"
+                      value={Patient.dateofBirth}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, dateofBirth: event.target.value })
+                      }
                     />
-
-                    <label>
-                        Gender
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="gender">Gender</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.gender}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "gender": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="gender"
+                      value={Patient.gender}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, gender: event.target.value })
+                      }
                     />
-                    <label>
-                        Phone Number
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="phone">Phone Number</label>
                     <input
-                        className="col-12 mb-4"
-                        type="tel"
-                        value={Patient.phone}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "phone": event.target.value })
-                        }}
+                      className="form-control"
+                      type="tel"
+                      id="phone"
+                      value={Patient.phone}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, phone: event.target.value })
+                      }
                     />
-
-                    <label>
-                        Marital Status
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="maritalStatus">Marital Status</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.marital_Status}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "marital_Status": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="maritalStatus"
+                      value={Patient.marital_Status}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, marital_Status: event.target.value })
+                      }
                     />
-                    <label>
-                    Street Address
-                    </label>
+                  </div>
+                  <div className="col-12">
+                    <label htmlFor="streetAddress">Street Address</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.streetAddress}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "streetAddress": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="streetAddress"
+                      value={Patient.streetAddress}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, streetAddress: event.target.value })
+                      }
                     />
-
-                    <label>
-                        City
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="city">City</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.city}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "city": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="city"
+                      value={Patient.city}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, city: event.target.value })
+                      }
                     />
-                    <div className="form-control doc-register-form-container">
-                    <label>
-                        State
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="state">State</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.state}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "state": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="state"
+                      value={Patient.state}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, state: event.target.value })
+                      }
                     />
-
-                    <label>
-                        Postal Code
-                    </label>
+                  </div>
+                  <div className="col-12">
+                    <label htmlFor="postalCode">Postal Code</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.postalCode}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "postalCode": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="postalCode"
+                      value={Patient.postalCode}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, postalCode: event.target.value })
+                      }
                     />
-                    <div className="form-control doc-register-form-container">
-                    <label>
-                        Emergency Name
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="emergencyName">Emergency Name</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.emergencyName}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "emergencyName": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="emergencyName"
+                      value={Patient.emergencyName}
+                      onChange={(event) =>
+                        SetPatient({ ...Patient, emergencyName: event.target.value })
+                      }
                     />
-
-                    <label>
-                        Emergency Phone
-                    </label>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="emergencyPhoneNumber">Emergency Phone</label>
                     <input
-                        className="col-12 mb-4"
-                        type="text"
-                        value={Patient.emergencyPhoneNumber}
-                        onChange={(event) => {
-                        SetPatient({ ...Patient, "emergencyPhoneNumber": event.target.value })
-                        }}
+                      className="form-control"
+                      type="text"
+                      id="emergencyPhoneNumber"
+                      value={Patient.emergencyPhoneNumber}
+                      onChange={(event) =>
+                        SetPatient({
+                          ...Patient,
+                          emergencyPhoneNumber: event.target.value,
+                        })
+                      }
                     />
-                    <div>
-                    <label className="col-5"></label>
-                    <button style = {
-                        {backgroundColor:"grey",
-                        color:"white",
-                        border:"solid",
-                        borderRadius:"5px",
-                        border: "2px white solid",
-                        fontWeight:"bold"
-                        }
-                    } type="reset" className="col-3 mb-4 btn btn-primary login-btn">Cancel</button>
-                    <label className="col-1"></label>
-                    <button type="submit" className="col-3 mb-4 btn btn-primary login-btn" style = {
-                        {backgroundColor:"#7EBA56",
-                        color:"white",
-                        border:"solid",
-                        borderRadius:"5px",
-                        border: "2px white solid",
-                        fontWeight:"bold"
-                        }}  onClick={Register}>Register</button>
+                  </div>
+                  <div className="col-12">
+                    <div className="row">
+                      <div className="col-5"></div>
+                      <div className="col-3">
+                        <button
+                          type="reset"
+                          className="btn btn-primary login-btn"
+                          style={{
+                            backgroundColor: 'grey',
+                            color: 'white',
+                            fontWeight: 'bold',
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                      <div className="col-1"></div>
+                      <div className="col-3">
+                        <button
+                          type="submit"
+                          className="btn btn-primary login-btn"
+                          style={{
+                            backgroundColor: '#7EBA56',
+                            color: 'white',
+                            fontWeight: 'bold',
+                          }}
+                          onClick={Register}
+                        >
+                          Register
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <div className="text-center mt-3">
+                  <label>already have an account</label>
+                  <button className="login-btn" onClick={() =>
+                {
+                    navigate("/login")
+                }}>Login</button>
                 </div>
-                <div>
-                    Don't have account?
-                    <link to=""></link>
-                </div>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
-    </div>
-    </div>
+      </div>
+
+
     );
 }
 
