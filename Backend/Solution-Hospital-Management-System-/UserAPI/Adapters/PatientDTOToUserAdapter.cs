@@ -21,6 +21,8 @@ namespace UserAPI.Adapters
             {
                 throw new NullValueException("User object is null");
             }
+            item.Age = DateTime.Today.Year - new DateTime(item.DateofBirth.Year,
+                    item.DateofBirth.Month, item.DateofBirth.Day).Year;
             item.User.Email = item.Email;
             var hmac = new HMACSHA512();
             string? generatedPassword = await  _passwordservice.GeneratePatientPassword(item);
