@@ -7,9 +7,11 @@ import GetDoctors from './Shared-Components/GetDoctors';
 import GetPatients from './Shared-Components/GetPatients';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RegisterLandingPage from './Shared-Components/Register-landing';
+import AdminNavbar from './Navbar-Components/Admin-navbar';
 
 function App() {
   return (
+    <div className='App'>
     <Routes>
       <Route path='/patients' element={<GetPatients/>}></Route>
       <Route path='/doctors' element={<GetDoctors/>}></Route>
@@ -17,7 +19,9 @@ function App() {
       <Route path='/doctor' element={<DocterRegister/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/registerlanding' element={<RegisterLandingPage/>}></Route>
+      <Route path='/adminnavbar' element={<AdminNavbar/>}></Route>
     </Routes>
+    </div>
   );
 }
 
