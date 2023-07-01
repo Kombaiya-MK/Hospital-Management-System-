@@ -6,6 +6,7 @@ import PatientRegister from './Patient-Components/Patient-Register';
 import GetDoctors from './Shared-Components/GetDoctors';
 import GetPatients from './Shared-Components/GetPatients';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import RegisterLandingPage from './Shared-Components/Register-landing';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path='/patient' element={<PatientRegister/>}></Route>
       <Route path='/doctor' element={<DocterRegister/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
+      <Route path='/registerlanding' element={<RegisterLandingPage/>}></Route>
     </Routes>
   );
 }

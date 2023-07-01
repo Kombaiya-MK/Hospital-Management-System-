@@ -1,0 +1,134 @@
+/* Color Palette - Light Mode */
+:root {
+    --primary-color: #445c82;
+    --secondary-color: #7fa8d8;
+    --accent-color: #f7941e;
+    --background-color: rgba(245, 245, 245, 0.9);
+    --text-color: #555;
+  }
+  
+  body {
+    background-image: url("../resources/images/pexels-karolina-grabowska-4386466.jpg");
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  
+  /* Dark Mode */
+  .dark-mode {
+    --primary-color: #a8b6c2;
+    --secondary-color: #4d6385;
+    --accent-color: #ffa31a;
+    --background-color: #292929;
+    --text-color: #f5f5f5;
+  }
+  
+  .doc-register-component {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    padding: 40px;
+    background-color: var(--background-color);
+    /* border-radius: 8px; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .doc-register-container {
+    padding: 20px;
+  }
+  
+  .doc-register {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  
+  .doc-register-form-container {
+    margin-bottom: 20px;
+  }
+  
+  .doc-register-form-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--text-color);
+  }
+  
+  .doc-register-form-container input[type="text"],
+  .doc-register-form-container input[type="email"],
+  .doc-register-form-container input[type="tel"],
+  .doc-register-form-container input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--text-color);
+  }
+  
+  .doc-register-form-container input[type="text"]:focus,
+  .doc-register-form-container input[type="email"]:focus,
+  .doc-register-form-container input[type="tel"]:focus,
+  .doc-register-form-container input[type="date"]:focus {
+    border-color: var(--accent-color);
+  }
+  
+  .doc-register-component .row {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  
+  .doc-register-component .col-md-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .doc-register-component .col-5,
+  .doc-register-component .col-3,
+  .doc-register-component .col-1 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .doc-register-component .login-btn {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .doc-register-component p {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-color);
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  @media (max-width: 768px) {
+    .doc-register-component {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .doc-register-component {
+      max-width: 100%;
+      padding: 10px;
+    }
+    
+    .doc-register {
+      font-size: 24px;
+    }
+    
+    .doc-register-form-container input[type="text"],
+    .doc-register-form-container input[type="email"],
+    .doc-register-form-container input[type="tel"],
+    .doc-register-form-container input[type="date"] {
+      padding: 8px;
+    }
+  }
+  

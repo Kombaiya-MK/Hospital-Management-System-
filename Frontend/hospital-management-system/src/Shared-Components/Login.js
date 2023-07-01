@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import './CSS/Login.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import { useNavigate } from "react-router-dom";
+
 
 function Login(){
 
+    const navigate = useNavigate()
     const [user , setUser] = useState(
         {
             "email": "",
@@ -59,29 +62,15 @@ function Login(){
                     />
                     <div>
                     <label className="col-5"></label>
-                    <button style = {
-                        {backgroundColor:"grey",
-                        color:"white",
-                        border:"solid",
-                        borderRadius:"5px",
-                        border: "2px white solid",
-                        fontWeight:"bold"
-                        }
-                    } type="reset" className="col-3 mb-4 btn btn-primary login-btn">Cancel</button>
+                    <button type="reset" className="cancel-btn">Cancel</button>
                     <label className="col-1"></label>
-                    <button type="submit" className="col-3 mb-4 btn btn-primary login-btn" style = {
-                        {backgroundColor:"#7EBA56",
-                        color:"white",
-                        border:"solid",
-                        borderRadius:"5px",
-                        border: "2px white solid",
-                        fontWeight:"bold"
-                        }}  onClick={Login}>Login</button>
+                    <button type="submit" className="login-btn" onClick={Login}>Login</button>
                 </div>
                 </div>
                 <div>
                     Don't have account?
-                    <link to=""></link>
+                    &nbsp;&nbsp;<button className="login-btn" onClick={() =>
+                    navigate("/registerlanding")}>Sign up</button>
                 </div>
             </div>
         </div>
