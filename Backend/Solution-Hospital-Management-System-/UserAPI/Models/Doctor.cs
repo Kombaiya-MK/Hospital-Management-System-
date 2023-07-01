@@ -54,21 +54,7 @@ namespace UserAPI.Models
         public DateTime DateofBirth { get; set; }
 
 
-        public int Age
-        {
-            get
-            {
-                return age;
-            }
-            set
-            {
-
-                age = DateTime.Today.Year - new DateTime(DateofBirth.Year,
-                    DateofBirth.Month, DateofBirth.Day).Year;
-            }
-        }
-
-        private int age;
+        public int Age { get; set; }    
         public enum MaritalStatus
         {
             Single,

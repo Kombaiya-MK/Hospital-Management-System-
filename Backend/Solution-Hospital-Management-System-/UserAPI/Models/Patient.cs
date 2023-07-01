@@ -56,27 +56,13 @@ namespace UserAPI.Models
         public DateTime DateofBirth { get; set; }
 
 
-        public int Age
-        {
-            get
-            {
-                return age;
-            }
-            set
-            {
-
-                age = DateTime.Today.Year - new DateTime(DateofBirth.Year,
-                    DateofBirth.Month, DateofBirth.Day).Year;
-            }
-        }
+        public int Age { get; set; }
         public string? EmergencyName { get; set; }
 
         [Required(ErrorMessage = "phone number is  required")]
         [StringLength(10, ErrorMessage = "Phone number length is miss matched!!!")]
         [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
         public string? EmergencyPhoneNumber { get; set; }
-
-        private int age;
         public enum MaritalStatus
         {
             Single,

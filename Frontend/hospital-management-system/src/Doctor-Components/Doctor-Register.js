@@ -16,39 +16,12 @@ function DocterRegister(){
             "city": "",
             "state": "",
             "postalCode": "",
-            "dateofBirth": "",
+            "Status": "Inactive",
+            "dateofBirth": new Date(),
+            "accountStatus": "Inactive",
             "specialization": "",
             "experience": 0
           });
-    const[doc , setdoc] = useState(
-        {
-            "email": "",
-            "user": {
-              "email": "",
-              "password": "",
-              "hashKey": "",
-              "phoneNumber": "",
-              "name": "",
-              "age": 0,
-              "role": ""
-            },
-            "firstName": "",
-            "lastName": "",
-            "gender": "",
-            "phone": "",
-            "marital_Status": "",
-            "streetAddress": "",
-            "city": "",
-            "state": "",
-            "postalCode": "",
-            "status": "",
-            "dateofBirth": "",
-            "age": 0,
-            "accountStatus": "",
-            "specialization": "",
-            "experience": 0
-          }
-    )
     const Register = (event) =>
     {
         fetch("http://localhost:5101/api/Hospital/DoctorRegister" ,{
@@ -57,7 +30,7 @@ function DocterRegister(){
                 "accept": "text/plain",
                 "Content-Type": "application/json"
             },
-            "body":JSON.stringify({...doc,"doc":{} })})
+            "body":JSON.stringify({...DocReg,"DocReg":{} })})
             .then(async (data)=>{
                      var myData = await data.json();
                      console.log(myData)

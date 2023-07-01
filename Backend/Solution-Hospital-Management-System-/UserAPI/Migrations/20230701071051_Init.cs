@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-using System;
-
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -90,6 +88,11 @@ namespace UserAPI.Migrations
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Email", "Age", "HashKey", "Name", "Password", "PhoneNumber", "Role" },
+                values: new object[] { "Admin@gmail.com", 0, new byte[] { 36, 217, 229, 152, 233, 203, 136, 177, 187, 180, 144, 94, 250, 160, 210, 5, 131, 219, 27, 157, 38, 144, 29, 93, 96, 82, 72, 160, 20, 80, 67, 224 }, "Admin", new byte[] { 37, 99, 82, 51, 25, 193, 252, 129, 102, 93, 120, 85, 84, 188, 246, 196, 75, 231, 6, 219, 172, 71, 252, 8, 244, 94, 87, 251, 117, 219, 128, 72, 59, 173, 67, 120, 250, 131, 162, 177, 228, 184, 210, 93, 59, 209, 77, 0, 191, 170, 106, 208, 109, 215, 144, 99, 252, 5, 49, 129, 226, 79, 240, 227 }, "9876543210", "Admin" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

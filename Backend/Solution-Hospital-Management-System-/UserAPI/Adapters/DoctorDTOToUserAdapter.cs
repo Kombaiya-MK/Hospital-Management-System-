@@ -21,8 +21,11 @@ namespace UserAPI.Adapters
             {
                 throw new NullValueException("user object is null");
             }
+            item.Age = DateTime.Today.Year - new DateTime(item.DateofBirth.Year,
+                    item.DateofBirth.Month, item.DateofBirth.Day).Year;
             var hmac = new HMACSHA512();
             string? generatedPassword = await _passwordservice.GenerateDoctorPassword(item);
+            item.User.Email = item.Email;
             item.User.HashKey = hmac.ComputeHash(Encoding.UTF8.GetBytes(generatedPassword ?? "1234"));
             item.User.Password = hmac.Key;
             item.User.Role = "Doctor";
@@ -32,8 +35,6 @@ namespace UserAPI.Adapters
             item.AccountStatus = "Pending";
             item.Status = "NIL";
             return item.User;
-
-
         }
     }
 }
