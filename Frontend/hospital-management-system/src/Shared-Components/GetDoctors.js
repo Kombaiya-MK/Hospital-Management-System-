@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import {MDBTable , MDBTableBody , MDBTableHead , MDBBtn , MDBBadge} from "mdb-react-ui-kit"
 
 function GetDoctors()
 {
@@ -24,6 +25,12 @@ function GetDoctors()
             "specialization": "",
             "experience": 0
           }]);
+        
+        const age = () => {
+            const birthDate = new Date(doctor.dateofBirth); 
+            const difference = Date.now() - birthDate.getTime();
+            const age = new Date(difference);
+            return Math.abs(age.getUTCFullYear() - 1970);}
 
         const Register = (event) =>
         {
@@ -44,17 +51,57 @@ function GetDoctors()
         <div>
             <button onClick={Register}>
                click here </button>
+               <MDBTable align='middle'>
+      <MDBTableHead>
+        <tr>
+          <th scope='col'>Name</th>
+          <th scope='col'>Gender</th>
+          <th scope='col'>Phone</th>
+          <th scope='col'>Specialization</th>
+          <th scope='col'>Years of experience</th>
+	  <th scope='col'>Age</th>
+          <th scope='col'>AccountStatus</th>
+        </tr>
+      </MDBTableHead>
             {
                 doctor.map((val,idx) => {
                     return(
-                        <div>
-                            <div>{val.firstName}</div>
-                            <div>{val.dateofBirth}</div>
-                            <div></div>
-                        </div>
-                    )
+      <MDBTableBody>
+        <tr>
+          <td>
+            <div className='d-flex align-items-center'>
+              <div className='ms-3'>
+                <p className='fw-bold mb-1'>{val.firstName}</p>
+                <p className='text-muted mb-0'>{val.lastName}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p className='fw-normal mb-1'>{val.gender}</p>
+          </td>
+          <td>
+            <p className='fw-normal mb-1'>{val.phone}</p>
+          </td>
+          <td>
+            <p className='fw-normal mb-1'>{val.specialization}</p>
+          </td>
+          <td>
+            <p className='fw-normal mb-1'>{val.experience}</p>
+          </td>
+          <td>
+            <p className='fw-normal mb-1'>{age}</p>
+          </td>
+          <td>
+            <MDBBadge color='success' pill>
+                {val.accountStatus}
+            </MDBBadge>
+          </td>
+        </tr>
+      </MDBTableBody>
+  );
                 })
             }
+            </MDBTable>
         </div>
     )
 }
