@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Admin-navbar.css";
+import "./patient-navbar.css";
 import avatarImage from "../resources/images/profile.png";
 import { useNavigate, Link } from "react-router-dom";
 import GetDoctors from "../Shared-Components/GetDoctors";
@@ -61,7 +61,7 @@ function Modal({ isOpen, onClose }) {
   );
 }
 
-function AdminNavbar() {
+function PatientNavbar() {
   const [modalOpen, setModalOpen] = useState(false);
   const [component, setComponent] = useState(<GetDoctors/>)
   const toggleModal = () => {
@@ -119,9 +119,8 @@ function AdminNavbar() {
       {component}
     </div>
     </div>
-
   </>
   );
 }
 
-export default AdminNavbar;
+export default PatientNavbar;

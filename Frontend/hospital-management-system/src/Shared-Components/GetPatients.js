@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBBadge } from "mdb-react-ui-kit"
+import { MDBTable, MDBTableBody, MDBTableHead, MDBBadge } from "mdb-react-ui-kit"
 
 function GetPatients() {
-  const [Patients, SetPatients] = useState(
+  const [Patients, SetPatients] = useState([
     {
       "email": "",
       "user": {
@@ -24,8 +24,7 @@ function GetPatients() {
       "emergencyPhoneNumber": "",
       "passwordClear": ""
     }
-
-  )
+  ])
 
   const Register = () => {
     fetch("http://localhost:5101/api/Hospital/GetAllPatientes", {
@@ -36,12 +35,14 @@ function GetPatients() {
     })
       .then(async (data) => {
         var myData = await data.json();
+        console.log(myData)
         SetPatients(myData)
         console.log(Patients)
-      });
+      })};
 
     return (
-      <div onFocus={Register}>
+      <div >
+        <button onClick={Register}>Get patients</button>
         <MDBTable align='middle'>
           <MDBTableHead>
             <tr>
@@ -71,10 +72,10 @@ function GetPatients() {
                       <p className='fw-normal mb-1'>{val.gender}</p>
                     </td>
                     <td>
-                      <p className='fw-normal mb-1'>{val.phone}</p>
+                      <p className='fw-normal mb-1'>{val.phone}{val.StreetAddress}</p>
                     </td>
                     <td>
-                      <p className='fw-normal mb-1'>{val.StreetAddress},{val.City},{val.State},{val.PostalCode}</p>
+                      <p className='fw-normal mb-1'>{val.StreetAddress}</p>
                     </td>
                     <td>
                       <p className='fw-normal mb-1'>{val.Marital_Status}</p>
@@ -95,7 +96,6 @@ function GetPatients() {
         </MDBTable>
       </div>
     )
-  }
 }
 
 export default GetPatients;

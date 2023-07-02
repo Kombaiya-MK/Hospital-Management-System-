@@ -2,7 +2,7 @@
 
 /* Navbar Styles */
 .navbar {
-  background-color: #fff;
+  background-color: #75b46e;
   height: 60px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -12,10 +12,12 @@
   right: 0;
   z-index: 999;
   display: block;
+  
 }
 
 .navbar-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 12fr 1fr;
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;

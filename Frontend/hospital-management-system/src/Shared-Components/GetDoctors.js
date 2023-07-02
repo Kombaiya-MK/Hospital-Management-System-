@@ -1,10 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from "mdb-react-ui-kit"
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu , MDBDropdownItem } from "mdb-react-ui-kit"
 
 function GetDoctors() {
+  
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+      setOpen(!open);
+    };
   const [doctor, setdoctor] = useState(
     [
       {
@@ -103,11 +108,19 @@ function GetDoctors() {
                     <p className='fw-normal mb-1'>{age}</p>
                   </td>
                   <td>
-                  <ToggleButtonGroup type='checkbox' name='Account Status'>
-                  <ToggleButton value={'Pending'}>Pending</ToggleButton>
-                  <ToggleButton value={'Approved'}>Approved</ToggleButton>
-                  <ToggleButton value={'Declined'}>Declined</ToggleButton>
-                </ToggleButtonGroup>
+                  <div className="dropdown">
+                  <button onClick={handleOpen}>Dropdown</button>
+                  {open ? (
+                    <ul className="menu">
+                      <li className="menu-item">
+                        <button>Menu 1</button>
+                      </li>
+                      <li className="menu-item">
+                        <button>Menu 2</button>
+                      </li>
+                    </ul>) : null}
+                  {open ? <div>Is Open</div> : <div>Is Closed</div>}
+                </div>
                   </td>
                 </tr>
               </MDBTableBody>

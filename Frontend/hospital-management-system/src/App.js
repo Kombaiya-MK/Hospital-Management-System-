@@ -12,12 +12,16 @@ import LandingPage from './Shared-Components/Landing-page';
 import PatientLandingPage from './Patient-Components/Patient-landing-page';
 import DoctorLandingPage from './Doctor-Components/Doctor-landing-page';
 import { useState } from 'react';
+import Protected from './Navbar-Components/Protected';
 
 function App() {
-  const [loggedIn, setLoggedIn ] = useState(true)
-  const toggleRoute = () =>{
-    setLoggedIn(!loggedIn)
-  }
+  const [isLoggedIn, setisLoggedIn] = useState(null);
+  const logIn = () => {
+    setisLoggedIn(true);
+  };
+  const logOut = () => {
+    setisLoggedIn(false);
+  };
   return (
     <div className='App'>
     <Routes>
@@ -25,7 +29,7 @@ function App() {
       <Route path='/doctors' element={<GetDoctors/>}></Route>
       <Route path='/patient' element={<PatientRegister/>}></Route>
       <Route path='/doctor' element={<DocterRegister/>}></Route>
-      <Route path='/login' element={<Login/>}></Route>
+      <Route path='/' element={<Login/>}></Route>
       <Route path='/registerlanding' element={<RegisterLandingPage/>}></Route>
       <Route path='/adminnavbar' element={<AdminNavbar/>}></Route>
       <Route path='/home' element={<LandingPage/>}></Route>

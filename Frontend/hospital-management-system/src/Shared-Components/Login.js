@@ -5,8 +5,22 @@ import { useNavigate } from "react-router-dom";
 
 
 function Login(){
-
     const navigate = useNavigate()
+    if(localStorage.getItem('Token')){
+        if(localStorage.getItem('Role') == "Doctor")
+        {
+           navigate("/home/doctor")
+        }
+        else if(localStorage.getItem('Role') == "Patient")
+        {
+           navigate("/home/patient")
+        }
+        else{
+           navigate("/adminnavbar")
+        }
+    }
+
+    
     const [user , setUser] = useState(
         {
             "email": "",
@@ -17,7 +31,7 @@ function Login(){
     );
 
     var Login = (event) => {
-        console.log(user)
+       
         fetch("http://localhost:5101/api/Hospital/Login" ,{
             "method":"POST",
             headers:{
@@ -40,8 +54,11 @@ function Login(){
                      {
                         navigate("/home/patient")
                      }
-                     else{
+                     else if(myData.role == "Admin"){
                         navigate("/home")
+                     }
+                     else{
+                        alert("Invalid User")
                      }
                     }     
             }).catch((err) => {
