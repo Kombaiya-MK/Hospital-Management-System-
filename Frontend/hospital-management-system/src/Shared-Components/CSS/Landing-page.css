@@ -1,0 +1,32 @@
+
+.landing-page-container {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
+  .landing-page-container img{
+    height: 90vh;
+    width: 100%;
+  }
+  
+  .landing-page-container .landing-page-container-content {
+    /* position: absolute; */
+     /* Position the background text */
+    /* bottom: 0;  */
+    /* At the bottom. Use top:0 to append it to the top */
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    color: #f1f1f1; /* Grey text */
+    width: 100%; /* Full width */
+    padding: 20px; /* Some padding */
+  }
+
+  .image-overlay {
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5; /* Adjust the opacity value to your preference */
+  }
