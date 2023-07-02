@@ -49,3 +49,7 @@
   "experience": 2,
   "passwordClear": "mk@123"
 }
+
+//Admin Login 
+Admin044@gmail.com
+Admi142

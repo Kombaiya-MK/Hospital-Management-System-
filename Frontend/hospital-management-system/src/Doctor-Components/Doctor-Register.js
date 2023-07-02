@@ -2,9 +2,28 @@ import React, { useState } from "react";
 import './Doctor-Register.css'
 import { useNavigate } from "react-router-dom";
 
+function Modal({ isOpen, onClose }) {
+    const navigate = useNavigate()
+    const Redirect = () => {
+      navigate("/home/patient")
+    }
+    return (
+      <div className={`modal ${isOpen ? "open" : ""}`}>
+        <div className="modal-content">
+          <h2>Registration Successful!</h2>
+          <p>Your account has been registered successfully.</p>
+          <button className="modal-close" onClick={Redirect}>
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
 function DocterRegister(){
 
     const navigate = useNavigate()
+    const [modalOpen, setModalOpen] = useState(false);
     const [DocReg , setDocReg] = useState(
         {
             "email": "",
@@ -35,10 +54,21 @@ function DocterRegister(){
             },
             "body":JSON.stringify({...DocReg,"DocReg":{} })})
             .then(async (data)=>{
-                     var myData = await data.json();
-                     console.log(myData)
-            });
-    }
+                if (data.status == 201) {
+                  var myData = await data.json();
+                  localStorage.setItem("Email", myData.email);
+                  localStorage.setItem("Token",myData.token.toString());
+                  localStorage.setItem("Role",myData.role);
+                  console.log(myData)
+                  setModalOpen(true);
+                }
+              }).catch((err) => {
+                console.log(err.error);
+              });
+          }
+    const closeModal = () => {
+        setModalOpen(false);
+      };
     return (
         <div className="doc-register-component">
             <div className="doc-register-container">
@@ -221,6 +251,7 @@ function DocterRegister(){
                         >
                         Register
                         </button>
+                        <Modal isOpen={modalOpen} onClose={closeModal} />
                     </div>
                     </div>
                 </div>
