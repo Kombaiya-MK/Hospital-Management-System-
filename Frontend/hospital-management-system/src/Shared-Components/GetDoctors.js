@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBBadge } from "mdb-react-ui-kit"
+import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from "mdb-react-ui-kit"
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 function GetDoctors() {
   const [doctor, setdoctor] = useState(
@@ -40,7 +42,7 @@ function GetDoctors() {
   }
 
   const isApproved = (event) => {
-    
+    setStatus({...Status,"accountStatus" : event.target.value})
   }
   const Register = (event) => {
     fetch("http://localhost:5101/api/Hospital/GetAllDoctors", {
@@ -59,9 +61,7 @@ function GetDoctors() {
       });
   }
   return (
-    <div>
-      <button onClick={Register}>
-        click here </button>
+    <div onFocus={Register}>
       <MDBTable align='middle'>
         <MDBTableHead>
           <tr>
@@ -103,10 +103,11 @@ function GetDoctors() {
                     <p className='fw-normal mb-1'>{age}</p>
                   </td>
                   <td>
-                    <MDBBtn onClick={isApproved}
-                    color='success' pill>
-                      {val.accountStatus}
-                    </MDBBtn>
+                  <ToggleButtonGroup type='checkbox' name='Account Status'>
+                  <ToggleButton value={'Pending'}>Pending</ToggleButton>
+                  <ToggleButton value={'Approved'}>Approved</ToggleButton>
+                  <ToggleButton value={'Declined'}>Declined</ToggleButton>
+                </ToggleButtonGroup>
                   </td>
                 </tr>
               </MDBTableBody>

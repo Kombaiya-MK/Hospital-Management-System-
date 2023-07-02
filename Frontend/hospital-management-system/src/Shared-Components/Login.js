@@ -26,8 +26,26 @@ function Login(){
             },
             "body":JSON.stringify({...user,"user":{} })})
             .then(async (data)=>{
+                if(data.status == 201)
+                {
                      var myData = await data.json();
-                     console.log(myData)
+                     localStorage.setItem("Email", myData.email);
+                     localStorage.setItem("Token",myData.token.toString());
+                     localStorage.setItem("Role",myData.role);
+                     if(myData.role == "Doctor")
+                     {
+                        navigate("/home/doctor")
+                     }
+                     else if(myData.role == "Patient")
+                     {
+                        navigate("/home/patient")
+                     }
+                     else{
+                        navigate("/home")
+                     }
+                    }     
+            }).catch((err) => {
+                console.log(err.error);
             });
     }
     return (

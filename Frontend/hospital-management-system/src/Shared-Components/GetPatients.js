@@ -41,9 +41,7 @@ function GetPatients() {
       });
 
     return (
-      <div>
-        <button onClick={Register}>
-          click here </button>
+      <div onFocus={Register}>
         <MDBTable align='middle'>
           <MDBTableHead>
             <tr>
