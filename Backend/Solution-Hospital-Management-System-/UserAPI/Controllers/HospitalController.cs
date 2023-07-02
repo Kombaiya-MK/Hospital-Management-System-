@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserAPI.Interfaces;
@@ -11,6 +12,7 @@ namespace UserAPI.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [EnableCors(PolicyName = "MyCors")]
+    //[Authorize(Roles =("Admin,Doctor,Patient"))]
     public class HospitalController : ControllerBase
     {
         private readonly IManageHospital _service;
@@ -47,6 +49,8 @@ namespace UserAPI.Controllers
 
         }
 
+        [Authorize("Admin")]
+        [Authorize("Patient")]
         [HttpGet]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

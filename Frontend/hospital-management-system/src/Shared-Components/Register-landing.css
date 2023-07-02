@@ -1,0 +1,23 @@
+.main-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .patient-register,
+  .doctor-register {
+    width: 45%;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .main-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .patient-register,
+    .doctor-register {
+      width: 10%;
+      margin-bottom: 20px;
+    }
+  }
+  

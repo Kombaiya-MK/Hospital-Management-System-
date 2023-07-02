@@ -1,24 +1,17 @@
 import React from "react";
 import {Routes, Route } from 'react-router-dom';
-import App from "../App";
 import DocterRegister from "../Doctor-Components/Doctor-Register";
-import Login from "./Login";
+import PatientRegister from "../Patient-Components/Patient-Register";
+import './Register-landing.css'
+import AdminNavbar from "../Navbar-Components/Admin-navbar";
 
 function RegisterLandingPage() {
 
     return (
         <div>
-            <Routes>
-                <Route path='/doctor' >
-                    <DocterRegister />
-                </Route>
-                <Route path='/login' >
-                    <Login/>
-                </Route>
-            </Routes>
+            <AdminNavbar/>
         </div>
     )
-
 }
 
 export default RegisterLandingPage;
