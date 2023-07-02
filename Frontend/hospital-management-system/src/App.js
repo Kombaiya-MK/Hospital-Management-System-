@@ -8,6 +8,8 @@ import GetPatients from './Shared-Components/GetPatients';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RegisterLandingPage from './Shared-Components/Register-landing';
 import AdminNavbar from './Navbar-Components/Admin-navbar';
+import LandingPage from './Shared-Components/Landing-page';
+import PatientLandingPage from './Patient-Components/Patient-landing-page';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/registerlanding' element={<RegisterLandingPage/>}></Route>
       <Route path='/adminnavbar' element={<AdminNavbar/>}></Route>
+      <Route path='/home' element={<LandingPage/>}></Route>
+      <Route path='/home/patient' element={<PatientLandingPage/>}></Route>
     </Routes>
     </div>
   );
