@@ -3,7 +3,7 @@
 namespace UserAPI.Services
 {
     [Serializable]
-    internal class NotUpdatedException : Exception
+    public class NotUpdatedException : Exception
     {
         public NotUpdatedException()
         {
