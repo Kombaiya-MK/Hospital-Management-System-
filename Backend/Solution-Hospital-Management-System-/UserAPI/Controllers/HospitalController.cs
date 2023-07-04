@@ -48,9 +48,6 @@ namespace UserAPI.Controllers
             }
 
         }
-
-        [Authorize("Admin")]
-        [Authorize("Patient")]
         [HttpGet]
         [ProducesResponseType(typeof(Doctor), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -63,6 +60,50 @@ namespace UserAPI.Controllers
                 if (docs.Count >= 1)
                 {
                     return Ok(docs);
+                }
+                return NotFound(new Error(1, "No  data available!!!"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Error(2, ex.Message));
+            }
+
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Doctor), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Patient>> GetPatient(GetPatient item)
+        {
+            try
+            {
+                var pat = await _service.GetPatient(item);
+                if (pat != null)
+                {
+                    return Ok(pat);
+                }
+                return NotFound(new Error(1, "No  data available!!!"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Error(2, ex.Message));
+            }
+
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Doctor), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Doctor>> GetDoctor(GetDoctor item)
+        {
+            try
+            {
+                var doc = await _service.GetDoctor(item);
+                if (doc != null)
+                {
+                    return Ok(doc);
                 }
                 return NotFound(new Error(1, "No  data available!!!"));
             }

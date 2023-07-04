@@ -260,7 +260,7 @@ function DocterRegister(){
                   <label>already have an account</label>
                   <button className="login-btn" onClick={() =>
                 {
-                    navigate("/login")
+                    navigate("/")
                 }}>Login</button>
                 </div>
             </div>

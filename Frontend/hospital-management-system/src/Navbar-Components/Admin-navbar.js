@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import "./Admin-navbar.css";
 import avatarImage from "../resources/images/profile.png";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import GetDoctors from "../Shared-Components/GetDoctors";
 import GetPatients from "../Shared-Components/GetPatients";
 import Login from "../Shared-Components/Login";
+import PatientLandingPage from "../Patient-Components/Patient-landing-page";
+import ApproveDoctor from "../Admin-Components/Approve-doctor";
+import { AiFillHome, AiFillMedicineBox, AiFillPicture, AiFillTags, AiFillUserMd } from "react-icons/ai";
+import Sidebar from "react-sidebar";
+import { FaBars } from "react-icons/fa";
 
 function SearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,10 +33,10 @@ function SearchBar() {
       />
       {searchQuery && (
         <button className="search-button" onClick={clearSearch}>
-          <i className="fas fa-times"></i>
+          <i className="fa fa-times"></i>
         </button>
       )}
-      <i className="fas fa-search search-icon"></i>
+      <i className="fa fa-search search-icon"></i>
     </div>
   );
 }
@@ -41,7 +46,7 @@ function Modal({ isOpen, onClose }) {
 
   const Logout = (event) => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -63,64 +68,97 @@ function Modal({ isOpen, onClose }) {
 
 function AdminNavbar() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [component, setComponent] = useState(<GetDoctors/>)
+  const [component, setComponent] = useState(<GetDoctors />);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
 
-
-  const showComponent = ()=>{
-    setComponent(<Login/>)
-  }
-  
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   return (
     <>
-    <nav className="navbar">
-      <div className="navbar-container">
-        <img src={require("../resources/images/1.jpg")}
-          className="navbar-logo"
-          alt="logo"
+      <nav className="navbar">
+        <div className="navbar-container">
+          <img
+            src={require("../resources/images/1.jpg")}
+            className="navbar-logo"
+            alt="logo"
           />
-        <SearchBar />
-        <ul className="navbar-menu">
-          <li className="navbar-item">
-            <div className="logout-link" onClick={toggleModal}>
-              <img src={avatarImage} alt="avatar" className="avatar" />
-              Logout
-            </div>
-          </li>
-        </ul>
-      </div>
-      <Modal isOpen={modalOpen} onClose={toggleModal} />
-    </nav>
-    <div className="adminNavbar-container">
-    <div className="adminSidebar">
-      <div class="nav1">
-        <ul>
-          <li>
-              <button onClick={() => {
-                setComponent(<GetDoctors/>)
-              }}>
-                Doctors List
-              </button>
-          </li>
-          <li> 
-         <button onClick={() => {
-                setComponent(<GetPatients/>)
-              }}>
-            Patient List
-         </button>
-          </li>
-        </ul>
-      </div>
-      </div>
-    <div className="adminMainComp" >
-      {component}
-    </div>
-    </div>
-
-  </>
+          <SearchBar />
+          <ul className="navbar-menu">
+            <li className="navbar-item">
+              <div className="logout-link" onClick={toggleModal}>
+                <img src={avatarImage} alt="avatar" className="avatar" />
+                Logout
+              </div>
+            </li>
+          </ul>
+          <div className="sidebar-toggle" onClick={toggleSidebar}>
+            <FaBars />
+          </div>
+        </div>
+        <Modal isOpen={modalOpen} onClose={toggleModal} />
+      </nav>
+      <Sidebar
+        sidebar={
+          <div className="adminSidebar">
+            <ul>
+              <li>
+                <button
+                  onClick={() => {
+                    setComponent(<PatientLandingPage />);
+                    setSidebarOpen(false);
+                  }}
+                >
+                  <AiFillHome />
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setComponent(<GetDoctors />);
+                    setSidebarOpen(false);
+                  }}
+                >
+                  <AiFillMedicineBox />
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setComponent(<GetPatients />);
+                    setSidebarOpen(false);
+                  }}
+                >
+                  <AiFillPicture />
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setComponent(<ApproveDoctor />);
+                    setSidebarOpen(false);
+                  }}
+                >
+                  <AiFillTags/>
+                  <i className="btn-check"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        }
+        open={sidebarOpen}
+        onSetOpen={toggleSidebar}
+        styles={{ sidebar: { background: "#f8f8f8", width: 200, top: "7%" } }}
+      >
+        <div className="adminNavbar-container">
+          <div className="adminMainComp">{component}</div>
+        </div>
+      </Sidebar>
+    </>
   );
 }
 

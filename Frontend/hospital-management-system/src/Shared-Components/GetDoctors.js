@@ -1,9 +1,15 @@
 import React from "react";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu , MDBDropdownItem } from "mdb-react-ui-kit"
 
 function GetDoctors() {
   
+  useEffect(() => {
+    let ignore = false;
+
+    if (!ignore) Register()
+    return () => { ignore = true; }
+    }, []);
 
     const [open, setOpen] = useState(false);
 
@@ -27,46 +33,40 @@ function GetDoctors() {
         "postalCode": "",
         "Status": "",
         "dateofBirth": "",
+        "age":0,
         "accountStatus": "",
         "specialization": "",
         "experience": 0
       }]);
 
-  const [Status , setStatus] = useState(
-    {
-      "email": "",
-      "status": "",
-      "accountStatus": ""
-    }
-  )
+  const [Style,setStyle] = useState({
+    fontSize:"16px"
+  })
+
   const age = () => {
     const birthDate = new Date(doctor.dateofBirth);
     const difference = Date.now() - birthDate.getTime();
     const age = new Date(difference);
     return Math.abs(age.getUTCFullYear() - 1970);
   }
-
-  const isApproved = (event) => {
-    setStatus({...Status,"accountStatus" : event.target.value})
-  }
   const Register = (event) => {
     fetch("http://localhost:5101/api/Hospital/GetAllDoctors", {
       "method": "GET",
       headers: {
-        "accept": "text/plain"
+        "accept": "text/plain",
+        "Authorization": "Bearer " + localStorage.getItem("Token")
+        
       },
     })
       .then(async (data) => {
         var myData = await data.json();
         console.log(myData)
         setdoctor(myData)
-        setStatus({...Status,"email":myData.email})
-        setStatus({...Status,"status":myData.Status})
         console.log(doctor)
       });
   }
   return (
-    <div onFocus={Register}>
+    <div>
       <MDBTable align='middle'>
         <MDBTableHead>
           <tr>
@@ -80,47 +80,33 @@ function GetDoctors() {
           </tr>
         </MDBTableHead>
         {
-          doctor.map((val, idx) => {
+          doctor.filter(x => x.accountStatus == "Approved").map((val, idx) => {
             return (
               <MDBTableBody>
                 <tr>
                   <td>
-                    <div className='d-flex align-items-center'>
+                    <div className='d-flex align-items-center list-doctors'>
                       <div className='ms-3'>
-                        <p className='fw-bold mb-1'>{val.firstName}</p>
-                        <p className='text-muted mb-0'>{val.lastName}</p>
+                        <p className='' style={Style}>{val.firstName}</p>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <p className='fw-normal mb-1'>{val.gender}</p>
+                    <p className='' style={Style}>{val.gender}</p>
                   </td>
                   <td>
-                    <p className='fw-normal mb-1'>{val.phone}</p>
+                    <p className='' style={Style}>{val.phone}</p>
                   </td>
                   <td>
-                    <p className='fw-normal mb-1'>{val.specialization}</p>
+                    <p className=''style={Style}>{val.specialization}</p>
                   </td>
                   <td>
-                    <p className='fw-normal mb-1'>{val.experience}</p>
+                    <p className='' style={Style}>{val.experience}</p>
                   </td>
                   <td>
-                    <p className='fw-normal mb-1'>{age}</p>
+                    <p className=''style={Style}>{val.age}</p>
                   </td>
                   <td>
-                  <div className="dropdown">
-                  <button onClick={handleOpen}>Dropdown</button>
-                  {open ? (
-                    <ul className="menu">
-                      <li className="menu-item">
-                        <button>Menu 1</button>
-                      </li>
-                      <li className="menu-item">
-                        <button>Menu 2</button>
-                      </li>
-                    </ul>) : null}
-                  {open ? <div>Is Open</div> : <div>Is Closed</div>}
-                </div>
                   </td>
                 </tr>
               </MDBTableBody>

@@ -21,58 +21,57 @@ function Modal({ isOpen, onClose }) {
 }
 
 function PatientRegister() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
-  const [Patient, SetPatient] = useState(
-    {
-      "email": "",
-      "user": {
-      },
-      "FirstName": "",
-      "LastName": "",
-      "Gender": "",
-      "Phone": "",
-      "Marital_Status": "",
-      "StreetAddress": "",
-      "City": "",
-      "State": "",
-      "PostalCode": "",
-      "Status": "Inactive",
-      "DateofBirth": new Date(),
-      "Age": 0,
-      "emergencyName": "",
-      "emergencyPhoneNumber": "",
-      "passwordClear": ""
-    }
+  const [patient, setPatient] = useState({
+    email: "",
+    user: {},
+    firstName: "",
+    lastName: "",
+    gender: "",
+    phone: "",
+    maritalStatus: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    status: "Inactive",
+    dateOfBirth: new Date(),
+    age: 0,
+    emergencyName: "",
+    emergencyPhoneNumber: "",
+    passwordClear: ""
+  });
 
-  )
-
-  var Register = (event) => {
+  const register = (event) => {
+    event.preventDefault();
     fetch("http://localhost:5101/api/Hospital/PatientRegister", {
-      "method": "POST",
+      method: "POST",
       headers: {
-        "accept": "text/plain",
+        accept: "text/plain",
         "Content-Type": "application/json"
       },
-      "body": JSON.stringify({ ...Patient, "Patient": {} })
+      body: JSON.stringify({ ...patient, Patient: {} })
     })
       .then(async (data) => {
-        if (data.status == 201) {
-          var myData = await data.json();
+        if (data.status === 201) {
+          const myData = await data.json();
           localStorage.setItem("Email", myData.email);
-          localStorage.setItem("Token",myData.token.toString());
-          localStorage.setItem("Role",myData.role);
-          console.log(myData)
+          localStorage.setItem("Token", myData.token.toString());
+          localStorage.setItem("Role", myData.role);
+          console.log(myData);
           setModalOpen(true);
         }
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err.error);
       });
-  }
+  };
+
   const closeModal = () => {
     setModalOpen(false);
   };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -80,7 +79,9 @@ function PatientRegister() {
           <div className="pat-register-component">
             <div className="pat-register-container">
               <div className="text-center mb-4">
-                <br /><br /><h2 className="pat-register">Register as Patient</h2>
+                <br />
+                <br />
+                <h2 className="pat-register">Register as Patient</h2>
               </div>
               <div className="row g-3">
                 <div className="col-12">
@@ -89,9 +90,9 @@ function PatientRegister() {
                     className="form-control"
                     type="email"
                     id="email"
-                    value={Patient.email}
+                    value={patient.email}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, email: event.target.value })
+                      setPatient({ ...patient, email: event.target.value })
                     }
                   />
                 </div>
@@ -101,9 +102,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="firstName"
-                    value={Patient.firstName}
+                    value={patient.firstName}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, firstName: event.target.value })
+                      setPatient({ ...patient, firstName: event.target.value })
                     }
                   />
                 </div>
@@ -113,21 +114,23 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="lastName"
-                    value={Patient.lastName}
+                    value={patient.lastName}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, lastName: event.target.value })
+                      setPatient({ ...patient, lastName: event.target.value })
                     }
                   />
                 </div>
-                <div className="col-md-6">
+                <div className="col-md
+
+-6">
                   <label htmlFor="dateOfBirth">Date of Birth</label>
                   <input
                     className="form-control"
                     type="date"
                     id="dateOfBirth"
-                    value={Patient.dateofBirth}
+                    value={patient.dateOfBirth}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, dateofBirth: event.target.value })
+                      setPatient({ ...patient, dateOfBirth: event.target.value })
                     }
                   />
                 </div>
@@ -137,9 +140,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="gender"
-                    value={Patient.gender}
+                    value={patient.gender}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, gender: event.target.value })
+                      setPatient({ ...patient, gender: event.target.value })
                     }
                   />
                 </div>
@@ -149,9 +152,9 @@ function PatientRegister() {
                     className="form-control"
                     type="tel"
                     id="phone"
-                    value={Patient.phone}
+                    value={patient.phone}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, phone: event.target.value })
+                      setPatient({ ...patient, phone: event.target.value })
                     }
                   />
                 </div>
@@ -161,9 +164,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="maritalStatus"
-                    value={Patient.marital_Status}
+                    value={patient.maritalStatus}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, marital_Status: event.target.value })
+                      setPatient({ ...patient, maritalStatus: event.target.value })
                     }
                   />
                 </div>
@@ -173,9 +176,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="streetAddress"
-                    value={Patient.streetAddress}
+                    value={patient.streetAddress}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, streetAddress: event.target.value })
+                      setPatient({ ...patient, streetAddress: event.target.value })
                     }
                   />
                 </div>
@@ -185,9 +188,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="city"
-                    value={Patient.city}
+                    value={patient.city}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, city: event.target.value })
+                      setPatient({ ...patient, city: event.target.value })
                     }
                   />
                 </div>
@@ -197,9 +200,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="state"
-                    value={Patient.state}
+                    value={patient.state}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, state: event.target.value })
+                      setPatient({ ...patient, state: event.target.value })
                     }
                   />
                 </div>
@@ -209,9 +212,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="postalCode"
-                    value={Patient.postalCode}
+                    value={patient.postalCode}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, postalCode: event.target.value })
+                      setPatient({ ...patient, postalCode: event.target.value })
                     }
                   />
                 </div>
@@ -221,9 +224,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="emergencyName"
-                    value={Patient.emergencyName}
+                    value={patient.emergencyName}
                     onChange={(event) =>
-                      SetPatient({ ...Patient, emergencyName: event.target.value })
+                      setPatient({ ...patient, emergencyName: event.target.value })
                     }
                   />
                 </div>
@@ -233,13 +236,15 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="emergencyPhoneNumber"
-                    value={Patient.emergencyPhoneNumber}
+                    value={patient.emergencyPhoneNumber}
                     onChange={(event) =>
-                      SetPatient({
-                        ...Patient,
-                        emergencyPhoneNumber: event.target.value,
+                      setPatient({
+                        ...patient,
+                        emergencyPhoneNumber: event.target.value
                       })
                     }
+
+
                   />
                 </div>
                 <div className="col-12">
@@ -250,9 +255,9 @@ function PatientRegister() {
                         type="reset"
                         className="btn btn-primary login-btn"
                         style={{
-                          backgroundColor: 'grey',
-                          color: 'white',
-                          fontWeight: 'bold',
+                          backgroundColor: "grey",
+                          color: "white",
+                          fontWeight: "bold"
                         }}
                       >
                         Cancel
@@ -261,14 +266,14 @@ function PatientRegister() {
                     <div className="col-1"></div>
                     <div className="col-3">
                       <button
-                        type="submit"
+                        type="button"
                         className="btn btn-primary login-btn"
                         style={{
-                          backgroundColor: '#7EBA56',
-                          color: 'white',
-                          fontWeight: 'bold',
+                          backgroundColor: "#7EBA56",
+                          color: "white",
+                          fontWeight: "bold"
                         }}
-                        onClick={Register}
+                        onClick={register}
                       >
                         Register
                       </button>
@@ -279,17 +284,20 @@ function PatientRegister() {
               </div>
               <div className="text-center mt-3">
                 <label>already have an account</label>
-                <button className="login-btn" onClick={() => {
-                  navigate("/login")
-                }}>Login</button>
+                <button
+                  className="login-btn"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Login
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
   );
 }
 

@@ -153,6 +153,19 @@ namespace UserAPI.Services
         {
             return await _patient.GetAll();
         }
+        public async Task<Patient> GetPatient(GetPatient item)
+        {
+            if (item == null || item.Email == null)
+                throw new NullValueException("Patient Email is Null");
+            return await _patient.Get(item.Email);
+        }
+
+        public async Task<Doctor> GetDoctor(GetDoctor item)
+        {
+            if (item == null || item.Email == null)
+                throw new NullValueException("Patient Email is Null");
+            return await _doctor.Get(item.Email);
+        }
 
         public async Task<Patient> UpdatePatientPhone(PatientPhoneDTO phone)
         {

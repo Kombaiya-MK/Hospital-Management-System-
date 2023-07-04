@@ -55,7 +55,7 @@ function Login(){
                         navigate("/home/patient")
                      }
                      else if(myData.role == "Admin"){
-                        navigate("/home")
+                        navigate("/adminnavbar")
                      }
                      else{
                         alert("Invalid User")
