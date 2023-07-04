@@ -1,10 +1,13 @@
 import React from "react";
+import { MDBSpinner } from "mdb-react-ui-kit";
 
-function DoctorWaitingPage(){
+function DoctorWaitingPage() {
 
-    return(
+    return (
         <div>
-            
+            <MDBSpinner grow>
+                <span className='visually-hidden'>Loading...</span>
+            </MDBSpinner>
         </div>
     )
 

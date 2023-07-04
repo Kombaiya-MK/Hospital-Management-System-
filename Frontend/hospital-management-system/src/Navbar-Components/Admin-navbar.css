@@ -245,8 +245,7 @@
   
   .adminNavbar-container{
     display: grid;
-    grid-template-columns: 1fr 5fr;
-    margin-top: 20px;
+    grid-template-columns: 1fr 7fr;
   }
 
   .adminNavbar-container li{
@@ -255,16 +254,24 @@
 
   .adminSidebar{
     height: 100vh;
+    width: fit-content;
     display: flex;
-    border-right: 2px solid green ;
+    border-right: 2px solid rgb(255, 255, 255) ;
+    box-shadow: 1px black;
   }
   
   .adminSidebar button{
     background-color: white;
     border: none;
     outline: none;
-    margin-top: 20px;
+    /* margin-top: 20px; */
   }
   .adminMainComp{
-    margin-left: 10px;
+    margin-left: 0%;
+  }
+  .sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    /* right: 20px; */
+    transform: translateY(-50%);
   }

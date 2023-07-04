@@ -1,8 +1,19 @@
 import React from "react";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBadge } from "mdb-react-ui-kit"
+import ShowProfilePatient from "../Patient-Components/ShowProfielPatient";
 
 function GetPatients() {
+
+  useEffect(() => {
+    let ignore = false;
+
+    if (!ignore) Register()
+    return () => { ignore = true; }
+    }, []);
+
+  
+
   const [Patients, SetPatients] = useState([
     {
       "email": "",
@@ -42,8 +53,8 @@ function GetPatients() {
 
     return (
       <div >
-        <button onClick={Register}>Get patients</button>
-        <MDBTable align='middle'>
+        {/* <button onClick={Register}>Get patients</button> */}
+        <MDBTable onChange={Register} align='middle'>
           <MDBTableHead>
             <tr>
               <th scope='col'>Name</th>
@@ -58,43 +69,13 @@ function GetPatients() {
           {
             Patients.map((val, idx) => {
               return (
-                <MDBTableBody>
-                  <tr>
-                    <td>
-                      <div className='d-flex align-items-center'>
-                        <div className='ms-3'>
-                          <p className='fw-bold mb-1'>{val.firstName}</p>
-                          <p className='text-muted mb-0'>{val.lastName}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p className='fw-normal mb-1'>{val.gender}</p>
-                    </td>
-                    <td>
-                      <p className='fw-normal mb-1'>{val.phone}{val.StreetAddress}</p>
-                    </td>
-                    <td>
-                      <p className='fw-normal mb-1'>{val.StreetAddress}</p>
-                    </td>
-                    <td>
-                      <p className='fw-normal mb-1'>{val.Marital_Status}</p>
-                    </td>
-                    <td>
-                      <p className='fw-normal mb-1'>{val.Age}</p>
-                    </td>
-                    <td>
-                      <MDBBadge color='success' pill>
-                        {val.Status}
-                      </MDBBadge>
-                    </td>
-                  </tr>
-                </MDBTableBody>
+                <Patients p = {val} key={idx}/>
               );
             })
           }
         </MDBTable>
       </div>
+
     )
 }
 

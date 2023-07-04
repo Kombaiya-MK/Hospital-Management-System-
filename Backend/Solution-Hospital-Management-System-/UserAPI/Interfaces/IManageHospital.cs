@@ -12,5 +12,9 @@ namespace UserAPI.Interfaces
         Task<bool> ChangePassword(PasswordDTO passwordDTO);
         Task<ICollection<Doctor>> GetAllDoctors();
         Task<ICollection<Patient>> GetAllPatients();
+        Task<Doctor> GetDoctor(GetDoctor item);
+        Task<Patient> GetPatient(GetPatient item);
+
+
     }
 }
