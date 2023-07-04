@@ -83,7 +83,6 @@ namespace UserAPI.Services
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                //_logger.LogError(ex.ToString());
                 Debug.WriteLine(ex.Message);
             }
             throw new NotUpdatedException("Not updated");

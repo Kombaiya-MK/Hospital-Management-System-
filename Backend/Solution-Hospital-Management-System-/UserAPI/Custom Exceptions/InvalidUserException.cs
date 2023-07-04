@@ -3,7 +3,7 @@
 namespace UserAPI.Services
 {
     [Serializable]
-    internal class InvalidUserException : Exception
+    public class InvalidUserException : Exception
     {
         public InvalidUserException()
         {

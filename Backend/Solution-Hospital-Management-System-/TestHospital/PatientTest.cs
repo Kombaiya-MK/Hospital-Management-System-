@@ -1,6 +1,11 @@
-#nullable disable
+﻿#nullable disable
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UserAPI.Interfaces;
 using UserAPI.Models;
 using UserAPI.Services;
@@ -8,7 +13,7 @@ using UserAPI.Services;
 namespace TestHospital
 {
     [TestClass]
-    public class DoctorTest
+    public class PatientTest
     {
         //Positive Testing
         public static DbContextOptions<HospitalContext> GetDbContextOptions()
@@ -24,11 +29,11 @@ namespace TestHospital
             return GetType().GetProperties().All(property => property.GetValue(this) == property.GetValue(obj));
         }
         [TestMethod]
-        public async Task TestOfGetAllDoctors()
+        public async Task TestOfGetAllPatients()
         {
             using (var hospitalContext = new HospitalContext(GetDbContextOptions()))
             {
-                hospitalContext.Doctors.Add(new Doctor
+                hospitalContext.Patients.Add(new Patient
                 {
                     FirstName = "Eren",
                     Phone = "9876543210",
@@ -36,13 +41,12 @@ namespace TestHospital
                     Age = 22,
                     Email = "gimu@gmail.com",
                     Gender = "Male",
-                    Experience = 10,
-                    Specialization = "ENT",
+                    EmergencyName = "Mikasa",
                     State = "XXX",
                     StreetAddress = "XXX",
                     City = "XXX",
                     Status = "Active",
-                    AccountStatus = "Pending",
+                    EmergencyPhoneNumber = "9876543210",
                     LastName = "Yeager",
                     PostalCode = "600001",
                     Marital_Status = "Single"
@@ -52,7 +56,7 @@ namespace TestHospital
 
             using (var hospitalContext = new HospitalContext(GetDbContextOptions()))
             {
-                IRepo<Doctor, string> repo =  new DoctorRepo(hospitalContext);
+                IRepo<Patient, string> repo = new PatientRepo(hospitalContext);
                 var data = await repo.GetAll();
                 Assert.AreEqual(1, data.Count);
             }
@@ -63,7 +67,7 @@ namespace TestHospital
         {
             using (var hospitalContext = new HospitalContext(GetDbContextOptions()))
             {
-                hospitalContext.Doctors.Add(new Doctor
+                _ = hospitalContext.Patients.Add(new Patient
                 {
                     FirstName = "Eren",
                     Phone = "9876543210",
@@ -71,13 +75,12 @@ namespace TestHospital
                     Age = 22,
                     Email = "Eren@gmail.com",
                     Gender = "Male",
-                    Experience = 10,
-                    Specialization = "ENT",
+                    EmergencyPhoneNumber = "9876543210",
+                    EmergencyName = "Mikasa",
                     State = "XXX",
                     StreetAddress = "XXX",
                     City = "XXX",
                     Status = "Active",
-                    AccountStatus = "Pending",
                     LastName = "Yeager",
                     PostalCode = "600001",
                     Marital_Status = "Single"
@@ -87,7 +90,7 @@ namespace TestHospital
 
             using (var hospitalContext = new HospitalContext(GetDbContextOptions()))
             {
-                IRepo<Doctor, string> repo = new DoctorRepo(hospitalContext);
+                IRepo<Patient, string> repo = new PatientRepo(hospitalContext);
                 var data = await repo.GetAll();
                 Assert.AreEqual(1, data.Count);
             }
@@ -97,11 +100,11 @@ namespace TestHospital
         public async Task TestGetAll()
         {
             using var context = new HospitalContext(GetDbContextOptions());
-            var doctors = await context.Doctors.ToListAsync();
+            var Patients = await context.Patients.ToListAsync();
 
-            foreach (var doctor in doctors)
+            foreach (var Patient in Patients)
             {
-                Console.WriteLine($"Id: {doctor.Email}, Name: {doctor.FirstName}, Age: {doctor.Age}");
+                Console.WriteLine($"Id: {Patient.Email}, Name: {Patient.FirstName}, Age: {Patient.Age}");
             }
 
         }
@@ -111,7 +114,7 @@ namespace TestHospital
         {
             using (var hospitalContext = new HospitalContext(GetDbContextOptions()))
             {
-                hospitalContext.Doctors.Add(new Doctor
+                hospitalContext.Patients.Add(new Patient
                 {
                     FirstName = "Eren",
                     Phone = "9876543210",
@@ -119,13 +122,12 @@ namespace TestHospital
                     Age = 22,
                     Email = "Yeager@gmail.com",
                     Gender = "Male",
-                    Experience = 10,
-                    Specialization = "ENT",
+                    EmergencyName="Mikasa",
+                    EmergencyPhoneNumber="9876543210",
                     State = "XXX",
                     StreetAddress = "XXX",
                     City = "XXX",
                     Status = "Active",
-                    AccountStatus = "Pending",
                     LastName = "Yeager",
                     PostalCode = "600001",
                     Marital_Status = "Single"
@@ -135,9 +137,9 @@ namespace TestHospital
 
             using (var hospitalContext = new HospitalContext(GetDbContextOptions()))
             {
-                IRepo<Doctor, string> repo = new DoctorRepo(hospitalContext);
+                IRepo<Patient, string> repo = new PatientRepo(hospitalContext);
                 _ = await repo.Update(
-                    new Doctor()
+                    new Patient()
                     {
                         FirstName = "Eren",
                         Phone = "9876543210",
@@ -145,19 +147,18 @@ namespace TestHospital
                         Age = 22,
                         Email = "Yeager@gmail.com",
                         Gender = "Male",
-                        Experience = 10,
-                        Specialization = "ENT",
+                        EmergencyPhoneNumber = "1023456789",
                         State = "XXX",
                         StreetAddress = "XXX",
-                        City = "XXX",
+                        City = "YYY",
                         Status = "Active",
-                        AccountStatus = "Approved",
+                        EmergencyName = "Mikasa",
                         LastName = "Yeager",
                         PostalCode = "600001",
                         Marital_Status = "Single"
                     });
-                var doc = await repo.Get("Yeager@gmail.com");
-                Assert.AreEqual(doc.AccountStatus , "Approved",true);
+                var patient = await repo.Get("Yeager@gmail.com");
+                Assert.AreEqual(patient.City, "YYY", true);
             }
         }
 
@@ -167,9 +168,8 @@ namespace TestHospital
         public async Task GetException()
         {
             using HospitalContext hospitalContext = new(GetDbContextOptions());
-            IRepo<Doctor, string> repo = new DoctorRepo(hospitalContext);
-            //var data = new Doctor();
-            await Assert.ThrowsExceptionAsync<UnableToAddException>(() => repo.Add(new Doctor()));
+            IRepo<Patient, string> repo = new PatientRepo(hospitalContext);
+            await Assert.ThrowsExceptionAsync<UnableToAddException>(() => repo.Add(new Patient()));
         }
 
         [TestMethod]
@@ -177,19 +177,17 @@ namespace TestHospital
         public async Task UpdateException()
         {
             using var hospitalContext = new HospitalContext(GetDbContextOptions());
-            IRepo<Doctor, string> repo = new DoctorRepo(hospitalContext);
-            //var data = new Doctor();
-            await Assert.ThrowsExceptionAsync<NullValueException>(() => repo.Update(new Doctor()));
+            IRepo<Patient, string> repo = new PatientRepo(hospitalContext);
+            await Assert.ThrowsExceptionAsync<NullValueException>(() => repo.Update(new Patient()));
         }
 
         [TestMethod]
         //When email is wrong
         public async Task UpdateException2()
         {
-            using HospitalContext hospitalContext = new(GetDbContextOptions());
-            IRepo<Doctor, string> repo = new DoctorRepo(hospitalContext);
-            //var data = new Doctor();
-            await Assert.ThrowsExceptionAsync<NullValueException>(() => repo.Update(new Doctor()
+            using var hospitalContext = new HospitalContext(GetDbContextOptions());
+            IRepo<Patient, string> repo = new PatientRepo(hospitalContext);
+            await Assert.ThrowsExceptionAsync<NullValueException>(() => repo.Update(new Patient()
             {
                 Email = "abc@gmail.com"
             }));
@@ -201,8 +199,7 @@ namespace TestHospital
         public async Task GetException2()
         {
             using var hospitalContext = new HospitalContext(GetDbContextOptions());
-            IRepo<Doctor, string> repo = new DoctorRepo(hospitalContext);
-            //var data = new Doctor();
+            IRepo<Patient, string> repo = new PatientRepo(hospitalContext);
             await Assert.ThrowsExceptionAsync<NullValueException>(() => repo.Get("abc@gmail.com"));
         }
 
@@ -210,6 +207,5 @@ namespace TestHospital
         {
             throw new NotImplementedException();
         }
-        
     }
 }

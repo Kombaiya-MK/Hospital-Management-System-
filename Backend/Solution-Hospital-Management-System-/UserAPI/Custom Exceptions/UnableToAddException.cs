@@ -3,7 +3,7 @@
 namespace UserAPI.Services
 {
     [Serializable]
-    internal class UnableToAddException : Exception
+    public class UnableToAddException : Exception
     {
         public UnableToAddException()
         {
