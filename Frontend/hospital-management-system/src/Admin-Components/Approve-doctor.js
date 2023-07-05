@@ -55,26 +55,20 @@ function ApproveDoctor() {
         if (!ignore) Register()
         return () => { ignore = true; }
     }, []);
-    useEffect(() => {
-        let ignore = false;
-
-        if (!ignore) Update()
-        return () => { ignore = true; }
-    }, []);
-    const email="";
 
     const [Status, setStatus] = useState(
         {
             "email": "",
             "status": "Active",
-            "accountStatus": ""
+            "accountStatus": "Active"
         }
     )
     const Register = (event) => {
         fetch("http://localhost:5101/api/Hospital/GetAllDoctors", {
             "method": "GET",
             headers: {
-                "accept": "text/plain"
+                "accept": "text/plain",
+                Authorization: "Bearer " + localStorage.getItem("Token"),
 
             },
         })
@@ -85,47 +79,41 @@ function ApproveDoctor() {
                 console.log(doctors)
             });
     }
-    const Update = () => {
+    const Update = (email,event) => {
+        // console.log(event.target.getAttribute("data-val1"))
+        const updatedStatus = {
+            ...Status,
+            email: email,
+            accountStatus:event.target.value,
+            status: "Active"
+          };
+        
         console.log(Status)
+        console.log(Status.email)
         fetch("http://localhost:5101/api/Hospital/ApprovalOfDoctor", {
             "method": "PUT",
             headers: {
-                "accept": "text/plain",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("Token"),
             },
-            "body": JSON.stringify({ ...Status, "Status": {} })
+            "body": JSON.stringify(updatedStatus)
         })
             .then(async (data) => {
-                if (data.status == 201) {
                     var myData = await data.json();
-                    localStorage.setItem("Email", myData.email);
-                    localStorage.setItem("Token", myData.token.toString());
-                    localStorage.setItem("Role", myData.role);
-                    localStorage.setItem("AccountStatus", myData.accountStatus)
+                    setDoctor(myData)
+                    setDoctors([...doctors,doctor])
                     console.log(myData)
-                }
             }).catch((err) => {
                 console.log(err.error);
             });
     }
+    // useEffect(() => {
+    //     Update();
+    //   }, [Status]);
 
     const [Style,setStyle] = useState({
         fontSize:"16px"
       })
-    
-      const [isActive, setIsActive] = useState(false);
-
-      const handleClick = event => {
-        if(isActive == true)
-            setDoctor({...doctor,"accountStatus":"Approved"})
-        else
-            setDoctor({...doctor,"accountStatus":"Declined"})
-
-        setStatus({...Status,"accountStatus":doctor.accountStatus})
-        setDoctors([...doctors,doctor])
-        setIsActive(current => !current);
-      };
-
     return (
         <div>
             <MDBTable align='middle'>
@@ -143,7 +131,7 @@ function ApproveDoctor() {
                     </tr>
                 </MDBTableHead>
                 {
-                    doctors.filter(x => x.accountStatus != "Approved").map((val, idx) => {
+                    doctors.filter(x => x.accountStatus == "Pending").map((val, idx) => {
                         return (
                             <MDBTableBody>
                                 <tr key={idx}>
@@ -173,10 +161,10 @@ function ApproveDoctor() {
                                         <p className='' style={Style}>{val.age}</p>
                                     </td>
                                     <td>
-                                        <button className={isActive ? "btn btn-success":"btn btn-danger" } value={"Approved"} onClick={handleClick}>{val.accountStatus}</button>&nbsp;&nbsp;&nbsp;
+                                        <button className="btn btn-success" value={"Approved"} onClick={(event) => Update(val.email,event)} data-val1 = {val.email}>Approve</button>&nbsp;&nbsp;&nbsp;
                                     </td>
                                     <td>
-                                        <button className="btn btn-dark" onClick={Update}>Confirm</button>
+                                        <button className="btn btn-danger" value={"Disapproved"} onClick={(event) => Update(val.email,event)}>Decline</button>
                                     </td>
                                 </tr>
                             </MDBTableBody>

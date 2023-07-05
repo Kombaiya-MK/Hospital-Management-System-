@@ -12,21 +12,24 @@ function ShowProfileDoctor(props){
             "email": "",
             "user": {
             },
-            "firstName": "",
-            "lastName": "",
-            "gender": "",
-            "phone": "",
-            "marital_Status": "",
-            "streetAddress": "",
-            "city": "",
-            "state": "",
-            "postalCode": "",
+            "FirstName": "",
+            "LastName": "",
+            "Gender": "",
+            "Phone": "",
+            "Marital_Status": "",
+            "StreetAddress": "",
+            "City": "",
+            "State": "",
+            "PostalCode": "",
             "Status": "Inactive",
-            "dateofBirth": new Date(),
+            "DateofBirth": "",
+            "Age": 0,
             "accountStatus": "Inactive",
             "specialization": "",
-            "experience": 0
-        }
+            "experience": 0,
+            "passwordClear": ""
+          }
+          
     )
 
     const getDoctor  = 

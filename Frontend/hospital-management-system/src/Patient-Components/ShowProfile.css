@@ -1,0 +1,52 @@
+/* Responsive CSS for ShowProfielPatient component */
+.maven-health-theme {
+    background-color: #f0f8f7;
+    padding: 20px;
+  }
+  
+  .maven-health-theme h2 {
+    text-align: center;
+    color: #4aae9b;
+  }
+  
+  .maven-health-theme h4 {
+    color: #4aae9b;
+    margin-top: 30px;
+  }
+  
+  .maven-health-theme form {
+    margin-top: 20px;
+  }
+  
+  .maven-health-theme .alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 576px) {
+    /* Mobile styles */
+    .maven-health-theme {
+      padding: 10px;
+    }
+  
+    .maven-health-theme h2 {
+      font-size: 24px;
+    }
+  
+    .maven-health-theme h4 {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  
+    .maven-health-theme form {
+      margin-top: 10px;
+    }
+  
+    .maven-health-theme .alert-success {
+      margin-top: 10px;
+    }
+  }
+  

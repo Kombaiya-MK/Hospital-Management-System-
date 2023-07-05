@@ -23,38 +23,41 @@ function Modal({ isOpen, onClose }) {
 function PatientRegister() {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
-  const [patient, setPatient] = useState({
-    email: "",
-    user: {},
-    firstName: "",
-    lastName: "",
-    gender: "",
-    phone: "",
-    maritalStatus: "",
-    streetAddress: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    status: "Inactive",
-    dateOfBirth: new Date(),
-    age: 0,
-    emergencyName: "",
-    emergencyPhoneNumber: "",
-    passwordClear: ""
-  });
+  const [patient, setPatient] = useState(
+    {
+      "email": "",
+      "user": {
+      },
+      "FirstName": "",
+      "LastName": "",
+      "Gender": "",
+      "Phone": "",
+      "Marital_Status": "",
+      "StreetAddress": "",
+      "City": "",
+      "State": "",
+      "PostalCode": "",
+      "Status": "Inactive",
+      "DateofBirth": "",
+      "Age": 0,
+      "emergencyName": "",
+      "emergencyPhoneNumber": "",
+      "passwordClear": ""
+    });
 
   const register = (event) => {
-    event.preventDefault();
+    console.log(patient)
     fetch("http://localhost:5101/api/Hospital/PatientRegister", {
       method: "POST",
       headers: {
-        accept: "text/plain",
+        "accept": "text/plain",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ ...patient, Patient: {} })
+      body: JSON.stringify(patient)
     })
       .then(async (data) => {
-        if (data.status === 201) {
+        console.log(data)
+        if (data.status == 201) {
           const myData = await data.json();
           localStorage.setItem("Email", myData.email);
           localStorage.setItem("Token", myData.token.toString());
@@ -92,19 +95,19 @@ function PatientRegister() {
                     id="email"
                     value={patient.email}
                     onChange={(event) =>
-                      setPatient({ ...patient, email: event.target.value })
+                      setPatient({ ...patient, "email": event.target.value })
                     }
                   />
                 </div>
                 <div className="col-md-6">
-                  <label htmlFor="firstName">First Name</label>
+                  <label htmlFor="FirstName">First Name</label>
                   <input
                     className="form-control"
                     type="text"
-                    id="firstName"
-                    value={patient.firstName}
+                    id="FirstName"
+                    value={patient.FirstName}
                     onChange={(event) =>
-                      setPatient({ ...patient, firstName: event.target.value })
+                      setPatient({ ...patient, "FirstName": event.target.value })
                     }
                   />
                 </div>
@@ -114,23 +117,21 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="lastName"
-                    value={patient.lastName}
+                    value={patient.LastName}
                     onChange={(event) =>
-                      setPatient({ ...patient, lastName: event.target.value })
+                      setPatient({ ...patient, "LastName": event.target.value })
                     }
                   />
                 </div>
-                <div className="col-md
-
--6">
+                <div className="col-md-6">
                   <label htmlFor="dateOfBirth">Date of Birth</label>
                   <input
                     className="form-control"
                     type="date"
                     id="dateOfBirth"
-                    value={patient.dateOfBirth}
+                    value={patient.DateofBirth}
                     onChange={(event) =>
-                      setPatient({ ...patient, dateOfBirth: event.target.value })
+                      setPatient({ ...patient, "DateofBirth": event.target.value })
                     }
                   />
                 </div>
@@ -140,9 +141,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="gender"
-                    value={patient.gender}
+                    value={patient.Gender}
                     onChange={(event) =>
-                      setPatient({ ...patient, gender: event.target.value })
+                      setPatient({ ...patient, "Gender": event.target.value })
                     }
                   />
                 </div>
@@ -152,9 +153,9 @@ function PatientRegister() {
                     className="form-control"
                     type="tel"
                     id="phone"
-                    value={patient.phone}
+                    value={patient.Phone}
                     onChange={(event) =>
-                      setPatient({ ...patient, phone: event.target.value })
+                      setPatient({ ...patient, "Phone": event.target.value })
                     }
                   />
                 </div>
@@ -164,9 +165,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="maritalStatus"
-                    value={patient.maritalStatus}
+                    value={patient.Marital_Status}
                     onChange={(event) =>
-                      setPatient({ ...patient, maritalStatus: event.target.value })
+                      setPatient({ ...patient, "Marital_Status": event.target.value })
                     }
                   />
                 </div>
@@ -176,9 +177,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="streetAddress"
-                    value={patient.streetAddress}
+                    value={patient.StreetAddress}
                     onChange={(event) =>
-                      setPatient({ ...patient, streetAddress: event.target.value })
+                      setPatient({ ...patient, "StreetAddress": event.target.value })
                     }
                   />
                 </div>
@@ -188,9 +189,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="city"
-                    value={patient.city}
+                    value={patient.City}
                     onChange={(event) =>
-                      setPatient({ ...patient, city: event.target.value })
+                      setPatient({ ...patient, "City": event.target.value })
                     }
                   />
                 </div>
@@ -200,9 +201,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="state"
-                    value={patient.state}
+                    value={patient.State}
                     onChange={(event) =>
-                      setPatient({ ...patient, state: event.target.value })
+                      setPatient({ ...patient, "State": event.target.value })
                     }
                   />
                 </div>
@@ -212,9 +213,9 @@ function PatientRegister() {
                     className="form-control"
                     type="text"
                     id="postalCode"
-                    value={patient.postalCode}
+                    value={patient.PostalCode}
                     onChange={(event) =>
-                      setPatient({ ...patient, postalCode: event.target.value })
+                      setPatient({ ...patient, "PostalCode": event.target.value })
                     }
                   />
                 </div>
@@ -226,7 +227,7 @@ function PatientRegister() {
                     id="emergencyName"
                     value={patient.emergencyName}
                     onChange={(event) =>
-                      setPatient({ ...patient, emergencyName: event.target.value })
+                      setPatient({ ...patient, "emergencyName": event.target.value })
                     }
                   />
                 </div>
@@ -240,7 +241,7 @@ function PatientRegister() {
                     onChange={(event) =>
                       setPatient({
                         ...patient,
-                        emergencyPhoneNumber: event.target.value
+                        "emergencyPhoneNumber": event.target.value
                       })
                     }
 

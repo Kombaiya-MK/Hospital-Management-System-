@@ -60,7 +60,10 @@ function Login(){
                      else{
                         alert("Invalid User")
                      }
-                    }     
+                    }  
+                else{
+                    alert("Invalid user")
+                }   
             }).catch((err) => {
                 console.log(err.error);
             });
@@ -105,7 +108,9 @@ function Login(){
                 <div>
                     Don't have account?
                     &nbsp;&nbsp;<button className="login-btn" onClick={() =>
-                    navigate("/registerlanding")}>Sign up</button>
+                    navigate("/patient")}>Sign up as Patient</button>
+                    &nbsp;&nbsp;<button className="login-btn" onClick={() =>
+                    navigate("/doctor")}>Sign up as doctor</button>
                 </div>
             </div>
         </div>

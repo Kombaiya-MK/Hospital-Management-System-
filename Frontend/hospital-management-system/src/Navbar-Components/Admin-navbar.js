@@ -7,7 +7,7 @@ import GetPatients from "../Shared-Components/GetPatients";
 import Login from "../Shared-Components/Login";
 import PatientLandingPage from "../Patient-Components/Patient-landing-page";
 import ApproveDoctor from "../Admin-Components/Approve-doctor";
-import { AiFillHome, AiFillMedicineBox, AiFillPicture, AiFillTags, AiFillUserMd } from "react-icons/ai";
+import { AiFillHome, AiFillMedicineBox, AiFillPicture, AiFillTags, AiFillUserMd, AiOutlineMenu } from "react-icons/ai";
 import Sidebar from "react-sidebar";
 import { FaBars } from "react-icons/fa";
 
@@ -97,7 +97,7 @@ function AdminNavbar() {
             </li>
           </ul>
           <div className="sidebar-toggle" onClick={toggleSidebar}>
-            <FaBars />
+            <AiOutlineMenu></AiOutlineMenu>
           </div>
         </div>
         <Modal isOpen={modalOpen} onClose={toggleModal} />
@@ -113,7 +113,7 @@ function AdminNavbar() {
                     setSidebarOpen(false);
                   }}
                 >
-                  <AiFillHome />
+                  <AiFillHome />Home
                 </button>
               </li>
               <li>
@@ -123,7 +123,7 @@ function AdminNavbar() {
                     setSidebarOpen(false);
                   }}
                 >
-                  <AiFillMedicineBox />
+                  <AiFillMedicineBox />Doctors
                 </button>
               </li>
               <li>
@@ -133,7 +133,7 @@ function AdminNavbar() {
                     setSidebarOpen(false);
                   }}
                 >
-                  <AiFillPicture />
+                  <AiFillPicture />Patients
                 </button>
               </li>
               <li>
@@ -143,7 +143,7 @@ function AdminNavbar() {
                     setSidebarOpen(false);
                   }}
                 >
-                  <AiFillTags/>
+                  <AiFillTags/>Approval
                   <i className="btn-check"></i>
                 </button>
               </li>

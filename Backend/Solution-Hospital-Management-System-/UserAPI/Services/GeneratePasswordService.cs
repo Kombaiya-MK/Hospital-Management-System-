@@ -27,7 +27,7 @@ namespace UserAPI.Services
             {
                 throw new NullValueException(nameof(patient.FirstName));
             }
-            password = patient.FirstName[..4];
+            password = patient.FirstName[..4].ToLower();
             password +=  patient.DateofBirth.Day;
             password +=  patient.DateofBirth.Month;
             await Task.Delay(100);

@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 function Modal({ isOpen, onClose }) {
     const navigate = useNavigate()
     const Redirect = () => {
-      navigate("/home/patient")
+            navigate("/home/doctor/wait")
+            
     }
     return (
       <div className={`modal ${isOpen ? "open" : ""}`}>
@@ -29,20 +30,22 @@ function DocterRegister(){
             "email": "",
             "user": {
             },
-            "firstName": "",
-            "lastName": "",
-            "gender": "",
-            "phone": "",
-            "marital_Status": "",
-            "streetAddress": "",
-            "city": "",
-            "state": "",
-            "postalCode": "",
+            "FirstName": "",
+            "LastName": "",
+            "Gender": "",
+            "Phone": "",
+            "Marital_Status": "",
+            "StreetAddress": "",
+            "City": "",
+            "State": "",
+            "PostalCode": "",
             "Status": "Inactive",
-            "dateofBirth": new Date(),
+            "DateofBirth": "",
+            "Age": 0,
             "accountStatus": "Inactive",
             "specialization": "",
-            "experience": 0
+            "experience": 0,
+            "passwordClear": ""
           });
     const Register = (event) =>
     {
@@ -52,16 +55,13 @@ function DocterRegister(){
                 "accept": "text/plain",
                 "Content-Type": "application/json"
             },
-            "body":JSON.stringify({...DocReg,"DocReg":{} })})
+            "body":JSON.stringify({...DocReg,DocReg:{} })})
             .then(async (data)=>{
-                if (data.status == 201) {
                   var myData = await data.json();
-                  localStorage.setItem("Email", myData.email);
-                  localStorage.setItem("Token",myData.token.toString());
-                  localStorage.setItem("Role",myData.role);
-                  console.log(myData)
+                  localStorage.setItem("AccountStatus" , myData.accountStatus)
+                  setDocReg(myData)
                   setModalOpen(true);
-                }
+                  console.log(myData)
               }).catch((err) => {
                 console.log(err.error);
               });
@@ -90,9 +90,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="text"
-                    value={DocReg.firstName}
+                    value={DocReg.FirstName}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, firstName: event.target.value });
+                        setDocReg({ ...DocReg, FirstName: event.target.value });
                     }}
                     />
                 </div>
@@ -101,9 +101,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="text"
-                    value={DocReg.lastName}
+                    value={DocReg.LastName}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, lastName: event.target.value });
+                        setDocReg({ ...DocReg, LastName: event.target.value });
                     }}
                     />
                 </div>
@@ -112,9 +112,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="date"
-                    value={DocReg.dateOfBirth}
+                    value={DocReg.DateofBirth}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, dateOfBirth: event.target.value });
+                        setDocReg({ ...DocReg, DateofBirth: event.target.value });
                     }}
                     />
                 </div>
@@ -123,9 +123,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="text"
-                    value={DocReg.gender}
+                    value={DocReg.Gender}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, gender: event.target.value });
+                        setDocReg({ ...DocReg, Gender: event.target.value });
                     }}
                     />
                 </div>
@@ -134,9 +134,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="tel"
-                    value={DocReg.phone}
+                    value={DocReg.Phone}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, phone: event.target.value });
+                        setDocReg({ ...DocReg, Phone: event.target.value });
                     }}
                     />
                 </div>
@@ -145,9 +145,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="text"
-                    value={DocReg.marital_Status}
+                    value={DocReg.Marital_Status}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, marital_Status: event.target.value });
+                        setDocReg({ ...DocReg, Marital_Status: event.target.value });
                     }}
                     />
                 </div>
@@ -156,9 +156,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="text"
-                    value={DocReg.streetAddress}
+                    value={DocReg.StreetAddress}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, streetAddress: event.target.value });
+                        setDocReg({ ...DocReg, StreetAddress: event.target.value });
                     }}
                     />
                 </div>
@@ -169,7 +169,7 @@ function DocterRegister(){
                     type="text"
                     value={DocReg.city}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, city: event.target.value });
+                        setDocReg({ ...DocReg, City: event.target.value });
                     }}
                     />
                 </div>
@@ -178,9 +178,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="text"
-                    value={DocReg.state}
+                    value={DocReg.State}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, state: event.target.value });
+                        setDocReg({ ...DocReg, State: event.target.value });
                     }}
                     />
                 </div>
@@ -189,9 +189,9 @@ function DocterRegister(){
                     <input
                     className="form-control"
                     type="text"
-                    value={DocReg.postalCode}
+                    value={DocReg.PostalCode}
                     onChange={(event) => {
-                        setDocReg({ ...DocReg, postalCode: event.target.value });
+                        setDocReg({ ...DocReg, PostalCode: event.target.value });
                     }}
                     />
                 </div>
