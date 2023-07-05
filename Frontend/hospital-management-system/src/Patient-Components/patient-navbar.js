@@ -3,10 +3,8 @@ import "./patient-navbar.css";
 import avatarImage from "../resources/images/profile.png";
 import { useNavigate } from "react-router-dom";
 import GetDoctors from "../Shared-Components/GetDoctors";
-import GetPatients from "../Shared-Components/GetPatients";
 import Login from "../Shared-Components/Login";
 import PatientLandingPage from "./Patient-landing-page";
-import ShowProfilePatient from "./ShowProfielPatient";
 import Sidebar from "react-sidebar";
 import { FaBars } from "react-icons/fa";
 
@@ -126,17 +124,7 @@ function PatientNavbar() {
                     setSidebarOpen(false);
                   }}
                 >
-                  Doctors List
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    setComponent(<GetPatients />);
-                    setSidebarOpen(false);
-                  }}
-                >
-                  Patient List
+                  Doctors
                 </button>
               </li>
             </ul>

@@ -6,9 +6,11 @@ import GetDoctors from "../Shared-Components/GetDoctors";
 import GetPatients from "../Shared-Components/GetPatients";
 import PatientLandingPage from "../Patient-Components/Patient-landing-page";
 import Login from "../Shared-Components/Login";
-import { FaHome, FaUserMd } from "react-icons/fa";
+import { FaHome, FaPersonBooth, FaUserMd } from "react-icons/fa";
 import Sidebar from "react-sidebar";
 import OffCanvas from "react-offcanvas";
+import ShowProfilePatient from "../Patient-Components/ShowProfielPatient";
+import { AiOutlineMenu, AiOutlineMenuUnfold } from "react-icons/ai";
 
 function SearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,10 +34,10 @@ function SearchBar() {
       />
       {searchQuery && (
         <button className="search-button" onClick={clearSearch}>
-          <i className="fas fa-times"></i>
+          <i className="fa fa-times"></i>
         </button>
       )}
-      <i className="fas fa-search search-icon"></i>
+      <i className="fa fa-search search-icon"></i>
     </div>
   );
 }
@@ -67,7 +69,7 @@ function Modal({ isOpen, onClose }) {
 
 function DoctorNavbar() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [component, setComponent] = useState(<GetDoctors />);
+  const [component, setComponent] = useState(<PatientLandingPage />);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleModal = () => {
@@ -111,19 +113,19 @@ function DoctorNavbar() {
                       toggleSidebar();
                     }}
                   >
-                    <FaHome />
-                    <span>Home</span>
+                    <FaHome />Home
+                    <span></span>
                   </button>
                 </li>
                 <li>
                   <button
                     onClick={() => {
-                      setComponent(<GetDoctors />);
+                      setComponent(<ShowProfilePatient />);
                       toggleSidebar();
                     }}
                   >
-                    <FaUserMd />
-                    <span>Doctors List</span>
+                    <FaUserMd />Profile
+                    <span></span>
                   </button>
                 </li>
                 <li>
@@ -133,8 +135,8 @@ function DoctorNavbar() {
                       toggleSidebar();
                     }}
                   >
-                    <FaUserMd />
-                    <span>Patient List</span>
+                    <FaPersonBooth />Patients
+                    <span></span>
                   </button>
                 </li>
               </ul>
@@ -149,7 +151,7 @@ function DoctorNavbar() {
         <div className="adminNavbar-container">
           <div className="toggle-sidebar-container">
             <button className="toggle-sidebar-button" onClick={toggleSidebar}>
-              <i className="fa fa-bars"></i>
+            <AiOutlineMenu/>
             </button>
           </div>
           <div className="adminMainComp">{component}</div>

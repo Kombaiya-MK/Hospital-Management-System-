@@ -1,0 +1,9 @@
+.custom-spinner {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .custom-spinner .spinner-border {
+    border-color: #ff0000;
+  }
+  
